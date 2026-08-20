@@ -29,44 +29,69 @@ class LeadController extends Controller
             'photo_name' => $photo?->getClientOriginalName(),
         ]);
 
-        // Куда отправляем заявку (на почту)
-        $toEmail = config('mail.from.address', 'povisok888@gmail.com');
+        // Почта отправителя и получателя задаётся отдельно в .env.
+        $toEmail = config('mail.lead_to_address');
+        $mailSent = false;
 
-        Mail::send('emails.lead_request', ['lead' => $lead], function ($message) use ($toEmail, $photo) {
-            $message
-                ->to($toEmail)
-                ->subject('Новая заявка с сайта ООО «НСКМакстар»');
+        if ($toEmail) {
+            try {
+                Mail::send('emails.lead_request', ['lead' => $lead], function ($message) use ($toEmail, $photo) {
+                    $message
+                        ->to($toEmail)
+                        ->subject('Новая заявка с сайта ООО «НСКМакстар»');
 
-            if ($photo?->isValid()) {
-                $message->attach($photo->getRealPath(), [
-                    'as' => $photo->getClientOriginalName(),
-                    'mime' => $photo->getMimeType(),
-                ]);
+                    if ($photo?->isValid()) {
+                        $message->attach($photo->getRealPath(), [
+                            'as' => $photo->getClientOriginalName(),
+                            'mime' => $photo->getMimeType(),
+                        ]);
+                    }
+                });
+
+                $mailSent = true;
+            } catch (\Throwable $e) {
+                report($e);
             }
-        });
+        }
 
-        // Уведомление в Telegram (если настроено)
-        $botToken = config('services.telegram.bot_token', env('TELEGRAM_BOT_TOKEN'));
-        $chatId   = config('services.telegram.chat_id', env('TELEGRAM_CHAT_ID'));
+        // В Telegram уходит ровно одно текстовое сообщение на заявку.
+        $botToken = config('services.telegram.bot_token');
+        $chatId   = config('services.telegram.chat_id');
+        $telegramSent = false;
 
         if ($botToken && $chatId) {
-            $text = "Новая заявка с сайта ООО «НСКМакстар»%0A"
-                . "Имя: {$lead['name']}%0A"
-                . "Телефон: {$lead['phone']}%0A"
-                . "Описание: " . urlencode($lead['message']) . "%0A"
-                . ($lead['photo_name'] ? "Фото: приложено к письму%0A" : '')
-                . "Страница: " . urlencode($lead['page']) . "%0A"
+            $text = "Новая заявка с сайта ООО «НСКМакстар»\n"
+                . "Имя: {$lead['name']}\n"
+                . "Телефон: {$lead['phone']}\n"
+                . "Описание: {$lead['message']}\n"
+                . ($lead['photo_name'] ? "Фото: приложено к письму\n" : '')
+                . "Страница: {$lead['page']}\n"
                 . "IP: {$lead['ip']}";
 
             try {
-                Http::get("https://api.telegram.org/bot{$botToken}/sendMessage", [
+                $response = Http::asForm()->timeout(10)->post("https://api.telegram.org/bot{$botToken}/sendMessage", [
                     'chat_id' => $chatId,
                     'text'    => $text,
                 ]);
+
+                $telegramSent = $response->successful();
+
+                if (! $telegramSent) {
+                    report(new \RuntimeException('Telegram notification was rejected by the API.'));
+                }
             } catch (\Throwable $e) {
-                // Логируем, но не ломаем форму
                 report($e);
             }
+        }
+
+        if (! $mailSent && ! $telegramSent) {
+            $message = 'Не удалось отправить заявку. Позвоните нам по телефону +7 (913) 895-45-25.';
+
+            if ($request->expectsJson() || $request->ajax()) {
+                return response()->json(['message' => $message], 503);
+            }
+
+            return back()->withInput()->withErrors(['form' => $message]);
         }
 
         // Если запрос AJAX (fetch), отдаем JSON

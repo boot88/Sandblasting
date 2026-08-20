@@ -115,4 +115,8 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    // Address which receives website enquiries. It may be different from
+    // MAIL_FROM_ADDRESS, which is used as the sender address.
+    'lead_to_address' => env('LEAD_TO_EMAIL', env('MAIL_FROM_ADDRESS')),
+
 ];

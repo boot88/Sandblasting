@@ -53,20 +53,6 @@
                     <span class="text-2xl font-bold text-primary-600 ml-1 hidden md:inline">nskmaxtar</span>
                 </div>
 
-<!-- Теглайн в шапке -->
-<div class="hidden lg:flex items-center mx-6">
-    <div class="h-8 w-px bg-slate-800/60 mr-4"></div>
-    <span class="text-xs tracking-[0.18em] uppercase text-slate-400">
-        Пескоструйная&nbsp;обработка
-    </span>
-</div>
-                <div class="header-contact">
-                    <span>Бердск, пер. Промышленный 2а/4</span>
-                    <span class="text-slate-600">•</span>
-                    <span>Режим: уточняйте по телефону</span>
-                    <a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer" data-metrika-goal="route_2gis" class="text-primary-300 hover:text-primary-200 underline underline-offset-4">Как проехать</a>
-                </div>
-
                 <!-- Десктопное меню -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-6">
@@ -194,7 +180,6 @@
                                         <p class="text-xs text-neutral-400">Режим работы уточняйте по телефону</p>
                                     </div>
                                     <div class="relative">
-                                        <div class="hero-marker hero-marker-pulse absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full h-7 w-7"></div>
                                         <div class="relative h-16 w-16 rounded-full border border-slate-500/70 bg-slate-900/80 flex items-center justify-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-primary-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
                                                 <path d="M12 22s7-7.134 7-12.5A7 7 0 0 0 5 9.5C5 14.866 12 22 12 22Z" />
