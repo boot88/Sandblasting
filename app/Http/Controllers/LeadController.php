@@ -35,7 +35,7 @@ class LeadController extends Controller
         Mail::send('emails.lead_request', ['lead' => $lead], function ($message) use ($toEmail, $photo) {
             $message
                 ->to($toEmail)
-                ->subject('Новая заявка с сайта ООО «Макстар»');
+                ->subject('Новая заявка с сайта ООО «НСКМакстар»');
 
             if ($photo?->isValid()) {
                 $message->attach($photo->getRealPath(), [
@@ -50,7 +50,7 @@ class LeadController extends Controller
         $chatId   = config('services.telegram.chat_id', env('TELEGRAM_CHAT_ID'));
 
         if ($botToken && $chatId) {
-            $text = "Новая заявка с сайта ООО «Макстар»%0A"
+            $text = "Новая заявка с сайта ООО «НСКМакстар»%0A"
                 . "Имя: {$lead['name']}%0A"
                 . "Телефон: {$lead['phone']}%0A"
                 . "Описание: " . urlencode($lead['message']) . "%0A"

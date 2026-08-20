@@ -8,7 +8,7 @@
     <table width="100%%" cellpadding="0" cellspacing="0" border="0" style="max-width:620px;margin:0 auto;background:#ffffff;border-radius:8px;overflow:hidden;">
         <tr>
             <td style="padding:20px 24px 16px 24px;border-bottom:1px solid #e5e7eb;">
-                <h2 style="margin:0 0 4px;font-size:18px;color:#111827;">Новая заявка с сайта ООО «Макстар»</h2>
+                <h2 style="margin:0 0 4px;font-size:18px;color:#111827;">Новая заявка с сайта ООО «НСКМакстар»</h2>
                 <p style="margin:0;font-size:12px;color:#6b7280;">{{ $lead['created_at'] ?? '' }}</p>
             </td>
         </tr>

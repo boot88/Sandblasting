@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ООО «Макстар»: пескоструйная обработка в Бердске. Очистка дисков, кузовов, рам, лодок, фасадов и металлоконструкций от ржавчины и старых покрытий.">
+    <meta name="description" content="ООО «НСКМакстар»: пескоструйная обработка в Бердске. Очистка дисков, кузовов, рам, лодок, фасадов и металлоконструкций от ржавчины и старых покрытий.">
     <meta name="robots" content="index,follow">
     <meta name="yandex-metrika-id" content="106844100">
     <link rel="canonical" href="{{ url('/') }}">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ru_RU">
-    <meta property="og:title" content="Пескоструйная обработка в Бердске | ООО «Макстар»">
+    <meta property="og:title" content="Пескоструйная обработка в Бердске | ООО «НСКМакстар»">
     <meta property="og:description" content="Очистка и подготовка металлических поверхностей к покраске: диски, рамы, кузова, лодки, фасады и конструкции.">
     <meta property="og:url" content="{{ url('/') }}">
     <meta property="og:image" content="{{ url('images/examples/example-wheel-before-after.webp') }}">
-    <title>Пескоструйная обработка в Бердске | ООО «Макстар»</title>
+    <title>Пескоструйная обработка в Бердске | ООО «НСКМакстар»</title>
     
     <link rel="icon" type="image/x-icon" href="images/logotip/l-m.ico">
     <link rel="apple-touch-icon" href="images/logotip/l-m.jpg">
@@ -22,11 +22,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/home.js'])
+    @vite('resources/js/app.js')
     <script type="application/ld+json">{!! json_encode([
         '@context' => 'https://schema.org',
         '@type' => 'LocalBusiness',
-        'name' => 'ООО «Макстар»',
+        'name' => 'ООО «НСКМакстар»',
         'description' => 'Пескоструйная обработка и подготовка металлических поверхностей к покраске.',
         'url' => url('/'),
         'telephone' => '+79138954525',
@@ -48,9 +48,9 @@
             <div class="flex items-center justify-between h-20">
                 <!-- Логотип и бренд -->
                 <div class="flex-shrink-0 flex items-center gap-2">
-                    <img src="images/logotip/l-m.jpg" alt="Логотип ООО «Макстар»" class="brand-mark md:hidden">
-                    <img src="images/logotip/logo_transparent_smoothed_more.png" alt="Логотип ООО «Макстар»" class="brand-logo hidden md:block">
-                    <span class="text-2xl font-bold text-primary-600 ml-1 hidden md:inline">maxtar-nsk</span>
+                    <img src="images/logotip/l-m.jpg" alt="Логотип ООО «НСКМакстар»" class="brand-mark md:hidden">
+                    <img src="images/logotip/logo_transparent_smoothed_more.png" alt="Логотип ООО «НСКМакстар»" class="brand-logo hidden md:block">
+                    <span class="text-2xl font-bold text-primary-600 ml-1 hidden md:inline">nskmaxtar</span>
                 </div>
 
 <!-- Теглайн в шапке -->
@@ -174,7 +174,7 @@
                                     <span class="inline-flex h-8 w-8 rounded-full bg-slate-800 border border-slate-700"></span>
                                 </div>
                                 <div>
-                                    <p class="font-semibold text-neutral-100">ООО «Макстар»</p>
+                                    <p class="font-semibold text-neutral-100">ООО «НСКМакстар»</p>
                                     <p class="text-xs text-neutral-400">Частные, сервисные и промышленные задачи</p>
                                 </div>
                             </div>
@@ -567,7 +567,7 @@
         <section id="about" class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-3xl mb-12">
-                    <h2 class="text-4xl md:text-5xl font-bold text-neutral-900 mb-6">ООО «Макстар»: подготовка металла к защите</h2>
+                    <h2 class="text-4xl md:text-5xl font-bold text-neutral-900 mb-6">ООО «НСКМакстар»: подготовка металла к защите</h2>
                     <p class="text-lg text-neutral-600 mb-6">
                         Выполняем пескоструйные работы в Бердске: очищаем поверхности от ржавчины, грязи, копоти, гари и старых покрытий, чтобы подготовить их к грунту или покраске.
                     </p>
@@ -611,7 +611,7 @@
         <section id="reviews" class="py-16 bg-slate-950">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Отзывы клиентов</h2>
-                <p class="text-neutral-300 mb-8">Не публикуем вымышленные отзывы. Реальные отклики и новые материалы будут собираться в официальном сообществе ООО «Макстар».</p>
+                <p class="text-neutral-300 mb-8">Не публикуем вымышленные отзывы. Реальные отклики и новые материалы будут собираться в официальном сообществе ООО «НСКМакстар».</p>
                 <article class="review-card review-source">
                     <div>
                         <p class="text-lg font-semibold text-white mb-2">Официальное сообщество во VK</p>
@@ -627,7 +627,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Связаться с ООО «Макстар»</h2>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Связаться с ООО «НСКМакстар»</h2>
                         <p class="text-neutral-300 mb-6">
                             Расскажите о задаче, пришлите фото или опишите объект — мы предложим варианты обработки и ориентировочную стоимость.
                         </p>
@@ -708,9 +708,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
-                    <img src="images/logotip/l-m.jpg" alt="ООО «Макстар»" class="h-10 w-10 rounded-full object-cover">
+                    <img src="images/logotip/l-m.jpg" alt="ООО «НСКМакстар»" class="h-10 w-10 rounded-full object-cover">
                     <div>
-                        <p class="text-sm font-semibold text-white">ООО «Макстар»</p>
+                        <p class="text-sm font-semibold text-white">ООО «НСКМакстар»</p>
                         <p class="text-xs text-neutral-500">Пескоструйная обработка в Бердске и НСО</p>
                     </div>
                 </div>
@@ -730,7 +730,7 @@
                 </div>
             </div>
             <div class="border-t border-neutral-800 mt-6 pt-4 text-sm text-center text-neutral-500">
-                <p>© 2026 ООО «Макстар». Все права защищены.</p>
+                <p>© 2026 ООО «НСКМакстар». Все права защищены.</p>
             </div>
         </div>
     </footer>
