@@ -1,11 +1,6 @@
 @import "tailwindcss";
 @import "./home.css";
 
-/* Tailwind v4: явно указываем Blade и JS, чтобы классы размеров SVG
-   (w-*, h-*) и вся адаптивная вёрстка попали в итоговый CSS. */
-@source "../views";
-@source "../js";
-
 @theme {
     --color-primary-50: #fef8ec;
     --color-primary-100: #fcedca;
