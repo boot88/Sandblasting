@@ -1,4 +1,4 @@
-<?php  //C:\laragon\www\Sandblasting
+<?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LeadController;
@@ -9,4 +9,3 @@ Route::get('/', function () {
 });
 
 Route::post('/lead', [LeadController::class, 'send'])->name('lead.send');
-

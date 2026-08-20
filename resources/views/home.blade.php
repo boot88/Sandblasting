@@ -6,14 +6,8 @@
     <meta name="description" content="Пескоструйная обработка в Бердске. Очистка от ржавчины, подготовка под покраску. Колёсные диски, кузова, фасады. Звоните +7 (913) 895-45-25">
     <title>Пескоструйная обработка в Бердске | SandBlast</title>
     
-    <!-- Desktop -->
-    <link rel="icon" type="image/jpeg" href="images/logotip/l-m.jpg" media="(min-width:768px)">
-
-    <!-- Mobile -->
-    <link rel="icon" type="image/x-icon" href="images/logotip/l-m.ico" media="(max-width:767px)">
-
-    <!-- iPhone (очень важно!) -->
-    <link rel="apple-touch-icon" href="images/logotip/l-m.ico">
+    <link rel="icon" type="image/x-icon" href="images/logotip/l-m.ico">
+    <link rel="apple-touch-icon" href="images/logotip/l-m.jpg">
     
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,7 +54,7 @@
         .hero-section {
             background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.08), transparent 50%),
                         radial-gradient(circle at bottom right, rgba(248, 250, 252, 0.08), transparent 55%),
-                        url("http://nioch-appl.ru/Sandblasting/public/images/hero/hero-bg-dark.jpg") center/cover no-repeat,
+                        url("images/prom_job/photo-1647586028042-1de4d4a935e6.jpg") center/cover no-repeat,
                         #020617;
         }
 
@@ -84,6 +78,10 @@
         .hero-gradient {
             background-image: radial-gradient(circle at 0% 0%, rgba(248, 250, 252, 0.12), transparent 50%),
                               radial-gradient(circle at 100% 100%, rgba(248, 250, 252, 0.06), transparent 55%);
+        }
+
+        .hero-texture {
+            background-image: repeating-linear-gradient(120deg, rgba(148, 163, 184, 0.12) 0, rgba(148, 163, 184, 0.12) 1px, transparent 1px, transparent 7px);
         }
 
         .hero-marker {
@@ -279,6 +277,62 @@
   opacity: 1;
   transform: scale(1.03);
 }
+.why-photo-card:focus-visible{
+  outline: 3px solid #fb923c;
+  outline-offset: 3px;
+}
+.why-before-after{
+  width: 100%;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+.why-before-after img,
+.why-before-after:hover img{
+  opacity: 1;
+  transform: none;
+}
+.why-before-after .why-after{
+  z-index: 1;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path .35s ease;
+}
+.why-before-after::before{
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 2;
+  width: 2px;
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 0 14px rgba(15,23,42,.9);
+  transform: translateX(-100%);
+  transition: transform .35s ease;
+}
+.why-before-after:hover .why-after,
+.why-before-after:focus-visible .why-after,
+.why-before-after.is-after-visible .why-after{
+  clip-path: inset(0 0 0 0);
+}
+.why-before-after:hover::before,
+.why-before-after:focus-visible::before,
+.why-before-after.is-after-visible::before{
+  transform: translateX(calc(100% - 2px));
+}
+.why-photo-label{
+  position: absolute;
+  top: .65rem;
+  z-index: 4;
+  border-radius: 999px;
+  padding: .2rem .55rem;
+  background: rgba(15,23,42,.78);
+  color: #fff;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.why-before-label{ left: .65rem; }
+.why-after-label{ right: .65rem; }
 .why-photo-overlay{
   position: absolute;
   inset: 0;
@@ -307,6 +361,9 @@
   max-height: 520px;
   object-fit: cover;
   width: 100%;
+}
+.portfolio-main.is-loading{
+  opacity: .55;
 }
 @media (min-width: 768px) {
   .portfolio-main{
@@ -354,6 +411,13 @@
   border: none;
   filter: saturate(1.1) contrast(1.02);
 }
+.map-actions{
+  display: flex;
+  justify-content: flex-end;
+  gap: .5rem;
+  padding: .65rem;
+  border-top: 1px solid rgba(148,163,184,.25);
+}
 
 /* Отзывы */
 .review-card{
@@ -385,7 +449,7 @@
             <div class="flex items-center justify-between h-20">
                 <!-- Логотип и бренд -->
                 <div class="flex-shrink-0 flex items-center gap-2">
-                    <img src="http://nioch-appl.ru/Sandblasting/public/images/logotip/l-m.jpg" alt="SandBlast" class="brand-mark md:hidden">
+                    <img src="images/logotip/l-m.jpg" alt="SandBlast" class="brand-mark md:hidden">
                     <img src="images/logotip/logo_transparent_smoothed_more.png" alt="Логотип SandBlast" class="brand-logo hidden md:block">
                     <span class="text-2xl font-bold text-primary-600 ml-1 hidden md:inline">SandBlast</span>
                 </div>
@@ -508,13 +572,13 @@
                     <!-- Правая часть героя: карта/металл/метка -->
                     <div class="relative mt-4 lg:mt-0">
                         <div class="hero-border hero-metal rounded-3xl p-6 md:p-7 lg:p-8 relative overflow-hidden">
-                            <div class="absolute inset-0 opacity-30 mix-blend-soft-light pointer-events-none" style="background-image: url('http://nioch-appl.ru/Sandblasting/public/images/hero/metal-texture.png'); background-size: cover;"></div>
+                            <div class="hero-texture absolute inset-0 opacity-30 mix-blend-soft-light pointer-events-none"></div>
 
                             <div class="relative z-10 grid grid-cols-1 gap-6">
                                 <div class="flex items-center justify-between gap-3">
                                     <div>
                                         <p class="text-xs uppercase tracking-[0.2em] text-slate-400 mb-1">ЛОКАЦИЯ</p>
-                                        <a href="https://yandex.ru/maps/?text=НСО%2C%20Бердск%2C%20пер.%20Промышленный%202а%2F4" target="_blank" class="hover:text-primary-300 underline-offset-4 hover:underline transition-colors">НСО, г. Бердск, пер. Промышленный 2а/4</a>
+                                        <a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer" class="hover:text-primary-300 underline-offset-4 hover:underline transition-colors">НСО, г. Бердск, пер. Промышленный 2а/4</a>
                                         <p class="text-xs text-neutral-400">Удобный выезд по региону и приём на площадке</p>
                                     </div>
                                     <div class="relative">
@@ -531,10 +595,15 @@
                                 <div class="map-card mt-2">
                                     <iframe
                                         class="map-iframe h-64 md:h-72"
-                                        src="https://yandex.ru/map-widget/v1/?um=constructor%3A03fbcda3de52efbe0173210f1a2f5e2a9bc3f90623f4946af9b84a4f45318672&amp;source=constructor"
+                                        src="https://yandex.ru/map-widget/v1/?ll=83.096077%2C54.766532&amp;z=17&amp;pt=83.096077%2C54.766532%2Cpm2rdm"
                                         loading="lazy"
                                         referrerpolicy="no-referrer-when-downgrade"
+                                        title="Карта: НСО, г. Бердск, пер. Промышленный 2а/4"
                                     ></iframe>
+                                    <div class="map-actions">
+                                        <a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-primary-300 hover:text-primary-200 underline underline-offset-4">Открыть в 2ГИС</a>
+                                        <a href="https://yandex.ru/maps/?text=НСО%2C%20г.%20Бердск%2C%20пер.%20Промышленный%202а%2F4" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-primary-300 hover:text-primary-200 underline underline-offset-4">Открыть в Яндекс Картах</a>
+                                    </div>
                                 </div>
 
                                 <div class="grid grid-cols-2 gap-4 mt-1">
@@ -570,7 +639,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     
 					<div class="service-card card overflow-hidden">
-                        <img src="http://nioch-appl.ru/Sandblasting/public/images/uslug/u-1.jpg" alt="Пескоструйная обработка" class="service-img">
+                        <img src="images/uslug/u-1.jpg" alt="Пескоструйная обработка дисков" class="service-img" loading="lazy" decoding="async">
                         <div class="p-6 text-center">
                             <h3 class="service-title text-lg font-semibold mb-2 text-neutral-900">Пескоструйная обработка дисков</h3>
                             <p class="text-sm text-neutral-600 mb-4">
@@ -583,7 +652,7 @@
                     </div>
 
                     <div class="service-card card overflow-hidden">
-                        <img src="http://nioch-appl.ru/Sandblasting/public/images/uslug/u-2.jpg" alt="Пескоструйная обработка кузова" class="service-img">
+                        <img src="images/uslug/u-2.jpg" alt="Пескоструйная обработка кузова и рам" class="service-img" loading="lazy" decoding="async">
                         <div class="p-6 text-center">
                             <h3 class="service-title text-lg font-semibold mb-2 text-neutral-900">Обработка кузова и рам</h3>
                             <p class="text-sm text-neutral-600 mb-4">
@@ -596,7 +665,7 @@
                     </div>
 
                     <div class="service-card card overflow-hidden">
-                        <img src="http://nioch-appl.ru/Sandblasting/public/images/uslug/u-3.jpg" alt="Пескоструйная обработка металлоконструкций" class="service-img">
+                        <img src="images/uslug/u-3.jpg" alt="Пескоструйная обработка металлоконструкций" class="service-img" loading="lazy" decoding="async">
                         <div class="p-6 text-center">
                             <h3 class="service-title text-lg font-semibold mb-2 text-neutral-900">Промышленные металлоконструкции</h3>
                             <p class="text-sm text-neutral-600 mb-4">
@@ -609,7 +678,7 @@
                     </div>
 
                     <div class="service-card card overflow-hidden">
-                        <img src="http://nioch-appl.ru/Sandblasting/public/images/uslug/u-4.jpg" alt="Пескоструйная обработка фасадов и архитектуры" class="service-img">
+                        <img src="images/uslug/u-4.jpg" alt="Пескоструйная обработка фасадов и архитектурных деталей" class="service-img" loading="lazy" decoding="async">
                         <div class="p-6 text-center">
                             <h3 class="service-title text-lg font-semibold mb-2 text-neutral-900">Фасады и архитектура</h3>
                             <p class="text-sm text-neutral-600 mb-4">
@@ -711,8 +780,6 @@
             </div>
         </section>
 
-        <!-- Галерея с модальным окном -->
-        <section 
         <!-- Наши работы: 2 слайдера по 3 фото -->
         <section id="portfolio" class="py-16 bg-neutral-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -887,14 +954,14 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-4">
                                 <div class="why-photo-card h-40 rounded-2xl overflow-hidden relative">
-                                    <img src="images/process/photo-1748348812466-8e29e1348f73.avif" alt="Миниатюра 6" loading="lazy" decoding="async">
+                                    <img src="images/process/photo-1748348812466-8e29e1348f73.avif" alt="Процесс пескоструйной обработки" loading="lazy" decoding="async">
                                     <div class="why-photo-overlay"></div>
                                     <div class="why-photo-caption">
                                         <span>Фото процесса пескоструйной обработки</span>
                                     </div>
                                 </div>
                                 <div class="why-photo-card h-40 rounded-2xl overflow-hidden relative">
-                                    <img src="images/fragment/photo-1766340744738-0c3355ea9879.avif" alt="Миниатюра 6" loading="lazy" decoding="async">
+                                    <img src="images/fragment/photo-1766340744738-0c3355ea9879.avif" alt="Фрагмент обработанной поверхности" loading="lazy" decoding="async">
                                     <div class="why-photo-overlay"></div>
                                     <div class="why-photo-caption">
                                         <span>Фрагменты обработанных поверхностей</span>
@@ -903,20 +970,22 @@
                             </div>
                             <div class="space-y-4 mt-6">
                                 <div class="why-photo-card h-40 rounded-2xl overflow-hidden relative">
-                                    <img src="images/exemple/photo-1673201159941-68fcdbbb4fa1.avif" alt="Миниатюра 6" loading="lazy" decoding="async">
+                                    <img src="images/exemple/photo-1673201159941-68fcdbbb4fa1.avif" alt="Пример промышленного объекта" loading="lazy" decoding="async">
                                     <div class="why-photo-overlay"></div>
                                     <div class="why-photo-caption">
                                         <span>Пример промышленного объекта</span>
                                     </div>
                                 </div>
-                                <div class="why-photo-card h-40 rounded-2xl overflow-hidden relative">
-                                    <img src="images/before/photo-1684310978150-5cabf9542b7d.avif" alt="Миниатюра 6" loading="lazy" decoding="async">
-									<img src="images/after/photo-1766340744738-0c3355ea9879.avif" alt="Миниатюра 6" loading="lazy" decoding="async">
+                                <button type="button" class="why-photo-card why-before-after h-40 rounded-2xl overflow-hidden relative" aria-pressed="false" aria-label="Показать очищенную поверхность металла">
+                                    <img src="images/before/photo-1684310978150-5cabf9542b7d.avif" alt="Коррозия на металлической поверхности" loading="lazy" decoding="async">
+                                    <img class="why-after" src="images/after/photo-1766340744738-0c3355ea9879.avif" alt="Очищенная поверхность металла" loading="lazy" decoding="async">
+                                    <span class="why-photo-label why-before-label">Коррозия</span>
+                                    <span class="why-photo-label why-after-label">Металл</span>
                                     <div class="why-photo-overlay"></div>
                                     <div class="why-photo-caption">
-                                        <span>До / после пескоструя</span>
+                                        <span>Состояние поверхности — наведите или нажмите</span>
                                     </div>
-                                </div>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -998,10 +1067,9 @@
                                 </svg>
                                 <div>
                                     <p class="text-sm font-semibold text-neutral-100">Адрес</p>
-                                    <p class="text-sm text-neutral-300">
-                                        г. Бердск, Новосибирская область<br>
-                                        Площадка SandBlast (адрес для навигатора уточнить по телефону)
-                                    </p>
+                                    <a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer" class="text-sm text-neutral-300 hover:text-primary-300 underline-offset-4 hover:underline">
+                                        НСО, г. Бердск, пер. Промышленный 2а/4
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -1044,7 +1112,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
-                    <img src="http://nioch-appl.ru/Sandblasting/public/images/logotip/l-m.jpg" alt="SandBlast" class="h-10 w-10 rounded-full object-cover">
+                    <img src="images/logotip/l-m.jpg" alt="SandBlast" class="h-10 w-10 rounded-full object-cover">
                     <div>
                         <p class="text-sm font-semibold text-white">SandBlast</p>
                         <p class="text-xs text-neutral-500">Пескоструйная обработка в Бердске и НСО</p>
@@ -1054,8 +1122,8 @@
     <p class="font-semibold text-neutral-300">Адрес</p>
     <p>
         НСО, г.&nbsp;Бердск, пер.&nbsp;Промышленный&nbsp;2а/4<br>
-        <a href="https://yandex.ru/maps/?text=НСО%2C%20Бердск%2C%20пер.%20Промышленный%202а%2F4" target="_blank" class="text-primary-400 hover:text-primary-300 underline-offset-4 hover:underline">
-            Открыть на карте
+        <a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer" class="text-primary-400 hover:text-primary-300 underline-offset-4 hover:underline">
+            Открыть в 2ГИС
         </a>
     </p>
 </div>
@@ -1172,10 +1240,13 @@
     const updateMainSrc = (desktopSrc, mobileSrc) => {
         const isMobile = window.matchMedia('(max-width: 767px)').matches;
         const target = isMobile ? (mobileSrc || desktopSrc) : (desktopSrc || mobileSrc);
-        if (target) {
+        if (target && mainImg.getAttribute('src') !== target) {
+            mainImg.classList.add('is-loading');
             mainImg.src = target;
         }
     };
+
+    mainImg.addEventListener('load', () => mainImg.classList.remove('is-loading'));
 
     // Стартовое изображение: подбираем под устройство
     if (desktopMainSrc || mobileMainSrc) {
@@ -1195,6 +1266,42 @@
         });
     });
 });
+
+        // Подгружаем большие изображения после первого рендера, чтобы первое
+        // переключение в галерее не ждало сеть. На экономных соединениях не грузим.
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const shouldPreloadGallery = !connection || (!connection.saveData && !/2g/.test(connection.effectiveType || ''));
+
+        if (shouldPreloadGallery) {
+            const preloadGalleryImages = () => {
+                const isMobile = window.matchMedia('(max-width: 767px)').matches;
+
+                document.querySelectorAll('.portfolio-thumb').forEach((thumb) => {
+                    const desktopSrc = thumb.getAttribute('data-src-desktop') || thumb.getAttribute('data-src');
+                    const mobileSrc = thumb.getAttribute('data-src-mobile') || desktopSrc;
+                    const source = isMobile ? mobileSrc : desktopSrc;
+
+                    if (source) {
+                        const image = new Image();
+                        image.decoding = 'async';
+                        image.src = source;
+                    }
+                });
+            };
+
+            if ('requestIdleCallback' in window) {
+                window.requestIdleCallback(preloadGalleryImages, { timeout: 2500 });
+            } else {
+                window.setTimeout(preloadGalleryImages, 1200);
+            }
+        }
+
+        document.querySelectorAll('.why-before-after').forEach((card) => {
+            card.addEventListener('click', () => {
+                const isVisible = card.classList.toggle('is-after-visible');
+                card.setAttribute('aria-pressed', String(isVisible));
+            });
+        });
 </script>
 <div id="toast-success" class="fixed inset-x-0 top-4 flex justify-center z-50 pointer-events-none hidden">
     <div class="bg-emerald-500 text-white text-sm md:text-base px-4 md:px-6 py-3 md:py-3.5 rounded-full shadow-2xl flex items-center gap-2 md:gap-3 pointer-events-auto">
