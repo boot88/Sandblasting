@@ -1,29 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "./home.css";
 
-/* Временно заменим все bg-primary-500 на конкретные цвета */
-.btn-primary {
-    background-color: #eb8610; /* primary-500 */
-}
-
-.btn-primary:hover {
-    background-color: #d0650b; /* primary-600 */
-}
-
-.btn-secondary {
-    background-color: white;
-    border: 1px solid #d1d5db; /* neutral-300 */
-}
-
-.btn-secondary:hover {
-    background-color: #f3f4f6; /* neutral-100 */
-}
-
-.card {
-    background-color: white;
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    border: 1px solid #e5e7eb; /* neutral-200 */
+@theme {
+    --color-primary-50: #fef8ec;
+    --color-primary-100: #fcedca;
+    --color-primary-200: #f8d88f;
+    --color-primary-300: #f4bd54;
+    --color-primary-400: #f1a229;
+    --color-primary-500: #eb8610;
+    --color-primary-600: #d0650b;
+    --color-primary-700: #ad480d;
+    --color-primary-800: #8b3a0f;
+    --color-primary-900: #733010;
 }

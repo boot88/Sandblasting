@@ -15,7 +15,10 @@ class LeadController extends Controller
             'name'    => ['required', 'string', 'max:255'],
             'phone'   => ['required', 'string', 'max:255'],
             'message' => ['required', 'string', 'max:5000'],
+            'photo'   => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,heic,heif', 'max:10240'],
         ]);
+
+        $photo = $request->file('photo');
 
         // Дополнительные данные о заявке
         $lead = array_merge($data, [
@@ -23,15 +26,23 @@ class LeadController extends Controller
             'created_at' => now()->format('d.m.Y H:i'),
             'user_agent' => $request->userAgent(),
             'ip'         => $request->ip(),
+            'photo_name' => $photo?->getClientOriginalName(),
         ]);
 
         // Куда отправляем заявку (на почту)
         $toEmail = config('mail.from.address', 'povisok888@gmail.com');
 
-        Mail::send('emails.lead_request', ['lead' => $lead], function ($message) use ($toEmail) {
+        Mail::send('emails.lead_request', ['lead' => $lead], function ($message) use ($toEmail, $photo) {
             $message
                 ->to($toEmail)
-                ->subject('Новая заявка с сайта SandBlast');
+                ->subject('Новая заявка с сайта ООО «Макстар»');
+
+            if ($photo?->isValid()) {
+                $message->attach($photo->getRealPath(), [
+                    'as' => $photo->getClientOriginalName(),
+                    'mime' => $photo->getMimeType(),
+                ]);
+            }
         });
 
         // Уведомление в Telegram (если настроено)
@@ -39,10 +50,11 @@ class LeadController extends Controller
         $chatId   = config('services.telegram.chat_id', env('TELEGRAM_CHAT_ID'));
 
         if ($botToken && $chatId) {
-            $text = "Новая заявка с сайта SandBlast%0A"
+            $text = "Новая заявка с сайта ООО «Макстар»%0A"
                 . "Имя: {$lead['name']}%0A"
                 . "Телефон: {$lead['phone']}%0A"
                 . "Описание: " . urlencode($lead['message']) . "%0A"
+                . ($lead['photo_name'] ? "Фото: приложено к письму%0A" : '')
                 . "Страница: " . urlencode($lead['page']) . "%0A"
                 . "IP: {$lead['ip']}";
 

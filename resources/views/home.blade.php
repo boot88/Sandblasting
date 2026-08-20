@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Пескоструйная обработка в Бердске. Очистка от ржавчины, подготовка под покраску. Колёсные диски, кузова, фасады. Звоните +7 (913) 895-45-25">
-    <title>Пескоструйная обработка в Бердске | SandBlast</title>
+    <meta name="description" content="ООО «Макстар»: пескоструйная обработка в Бердске. Очистка дисков, кузовов, рам, лодок, фасадов и металлоконструкций от ржавчины и старых покрытий.">
+    <meta name="robots" content="index,follow">
+    <meta name="yandex-metrika-id" content="106844100">
+    <link rel="canonical" href="{{ url('/') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:title" content="Пескоструйная обработка в Бердске | ООО «Макстар»">
+    <meta property="og:description" content="Очистка и подготовка металлических поверхностей к покраске: диски, рамы, кузова, лодки, фасады и конструкции.">
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:image" content="{{ url('images/examples/example-wheel-before-after.webp') }}">
+    <title>Пескоструйная обработка в Бердске | ООО «Макстар»</title>
     
     <link rel="icon" type="image/x-icon" href="images/logotip/l-m.ico">
     <link rel="apple-touch-icon" href="images/logotip/l-m.jpg">
@@ -13,435 +22,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Instrument Sans"', 'sans-serif'],
-                    },
-                    colors: {
-                        primary: {
-                            50: '#fef8ec',
-                            100: '#fcedca',
-                            200: '#f8d88f',
-                            300: '#f4bd54',
-                            400: '#f1a229',
-                            500: '#eb8610',
-                            600: '#d0650b',
-                            700: '#ad480d',
-                            800: '#8b3a0f',
-                            900: '#733010',
-                        },
-                    },
-                    boxShadow: {
-                        'soft': '0 18px 45px rgba(0, 0, 0, 0.35)',
-                    },
-                },
-            },
-        }
-    </script>
+    @vite(['resources/css/app.css', 'resources/js/home.js'])
+    <script type="application/ld+json">{!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'LocalBusiness',
+        'name' => 'ООО «Макстар»',
+        'description' => 'Пескоструйная обработка и подготовка металлических поверхностей к покраске.',
+        'url' => url('/'),
+        'telephone' => '+79138954525',
+        'priceRange' => '₽₽',
+        'address' => [
+            '@type' => 'PostalAddress',
+            'addressLocality' => 'Бердск',
+            'addressRegion' => 'Новосибирская область',
+            'streetAddress' => 'пер. Промышленный, 2а/4',
+            'addressCountry' => 'RU',
+        ],
+        'sameAs' => ['https://vk.ru/club105621991'],
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
 
-    <style>
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: "Instrument Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background-color: #020617;
-        }
-
-        .hero-section {
-            background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.08), transparent 50%),
-                        radial-gradient(circle at bottom right, rgba(248, 250, 252, 0.08), transparent 55%),
-                        url("images/prom_job/photo-1647586028042-1de4d4a935e6.jpg") center/cover no-repeat,
-                        #020617;
-        }
-
-        .hero-overlay {
-            background: radial-gradient(circle at top, rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 1));
-        }
-
-        .hero-badge {
-            backdrop-filter: blur(18px);
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.9));
-            border: 1px solid rgba(148, 163, 184, 0.35);
-        }
-
-        .hero-border {
-            border: 1px solid rgba(148, 163, 184, 0.35);
-            box-shadow: 0 30px 80px rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(26px);
-            background: radial-gradient(circle at top, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95));
-        }
-
-        .hero-gradient {
-            background-image: radial-gradient(circle at 0% 0%, rgba(248, 250, 252, 0.12), transparent 50%),
-                              radial-gradient(circle at 100% 100%, rgba(248, 250, 252, 0.06), transparent 55%);
-        }
-
-        .hero-texture {
-            background-image: repeating-linear-gradient(120deg, rgba(148, 163, 184, 0.12) 0, rgba(148, 163, 184, 0.12) 1px, transparent 1px, transparent 7px);
-        }
-
-        .hero-marker {
-            background: radial-gradient(circle at center, rgba(251, 191, 36, 0.95), rgba(248, 113, 22, 0.9));
-            box-shadow:
-                0 0 0 3px rgba(15, 23, 42, 1),
-                0 0 0 8px rgba(248, 113, 22, 0.35),
-                0 18px 45px rgba(0, 0, 0, 0.7);
-        }
-
-        .hero-marker-pulse {
-            box-shadow:
-                0 0 0 0 rgba(248, 113, 22, 0.7),
-                0 0 0 0 rgba(248, 113, 22, 0.3);
-            animation: hero-pulse 2.4s infinite cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @keyframes hero-pulse {
-            0% {
-                box-shadow:
-                    0 0 0 0 rgba(248, 113, 22, 0.8),
-                    0 0 0 0 rgba(248, 113, 22, 0.35);
-                transform: translate(-50%, -50%) scale(1);
-            }
-            70% {
-                box-shadow:
-                    0 0 0 20px rgba(248, 113, 22, 0),
-                    0 0 0 40px rgba(248, 113, 22, 0);
-                transform: translate(-50%, -50%) scale(1.03);
-            }
-            100% {
-                box-shadow:
-                    0 0 0 0 rgba(248, 113, 22, 0),
-                    0 0 0 0 rgba(248, 113, 22, 0);
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
-
-        .hero-line {
-            background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.7), transparent);
-        }
-
-        .floating-badge {
-            animation: float-badge 8s ease-in-out infinite;
-        }
-
-        @keyframes float-badge {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-            }
-            25% {
-                transform: translateY(-8px) translateX(4px);
-            }
-            50% {
-                transform: translateY(-12px) translateX(-4px);
-            }
-            75% {
-                transform: translateY(-6px) translateX(4px);
-            }
-        }
-
-        .floating-card {
-            animation: float-card 10s ease-in-out infinite;
-        }
-
-        @keyframes float-card {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-8px);
-            }
-        }
-
-        .hero-glow {
-            background: radial-gradient(circle at top, rgba(248, 250, 252, 0.27), transparent 55%);
-            opacity: 0.75;
-        }
-
-        .hero-metal {
-            background: radial-gradient(circle at 20% 0, rgba(148, 163, 184, 0.35), transparent 50%),
-                        radial-gradient(circle at 80% 100%, rgba(148, 163, 184, 0.3), transparent 55%);
-        }
-
-        .hero-blur {
-            backdrop-filter: blur(40px);
-        }
-
-        .service-card {
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-4px);
-            box-shadow:
-                0 18px 45px rgba(15, 23, 42, 0.18),
-                0 0 0 1px rgba(30, 64, 175, 0.04);
-            border-color: rgba(148, 163, 184, 0.75);
-        }
-
-        .service-img {
-            width: 100%;
-            height: 190px;
-            object-fit: cover;
-        }
-
-        .service-title {
-            letter-spacing: 0.01em;
-        }
-
-        .service-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #f97316, #ea580c);
-            color: #0b1120;
-            font-weight: 600;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #fb923c, #f97316);
-        }
-
-        .contact-card {
-            background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.95));
-            border: 1px solid rgba(148, 163, 184, 0.35);
-            box-shadow: 0 22px 60px rgba(15, 23, 42, 0.85);
-        }
-
-        .contact-input {
-            background-color: rgba(15, 23, 42, 0.7);
-            border-color: rgba(75, 85, 99, 0.9);
-            color: #e5e7eb;
-        }
-
-        .contact-input::placeholder {
-            color: #6b7280;
-        }
-
-        .contact-input:focus {
-            outline: none;
-            border-color: #fb923c;
-            box-shadow: 0 0 0 1px rgba(251, 146, 60, 0.3);
-        }
-
-        /* === Brand: SandBlast assets === */
-:root{
-  --brand-accent: #eb8610;
-  --brand-shadow: rgba(0,0,0,.25);
-}
-
-/* Логотип в шапке (web) */
-.brand-logo{
-  height: 44px;
-  width: auto;
-  object-fit: contain;
-  display: block;
-  background: transparent;
-  filter: drop-shadow(0 2px 6px var(--brand-shadow));
-}
-@media (min-width: 768px){ .brand-logo{ height: 52px; } }
-@media (min-width: 1024px){ .brand-logo{ height: 56px; } }
-
-/* Логотип в шапке (mobile / mark) */
-.brand-mark{
-  height: 40px;
-  width: 40px;
-  object-fit: cover;
-  border-radius: 9999px;
-  box-shadow: 0 0 0 2px #0f172a, 0 10px 30px rgba(0,0,0,.6);
-}
-
-
-/* Фото-блоки "Почему выбирают нас" */
-.why-photo-card{
-  border: 1px solid rgba(148,163,184,.45);
-  background: radial-gradient(circle at top, rgba(15,23,42,.9), rgba(15,23,42,1));
-  box-shadow: 0 18px 45px rgba(15,23,42,.85);
-}
-.why-photo-card img{
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: .75;
-  transition: opacity .25s ease, transform .25s ease;
-}
-.why-photo-card:hover img{
-  opacity: 1;
-  transform: scale(1.03);
-}
-.why-photo-card:focus-visible{
-  outline: 3px solid #fb923c;
-  outline-offset: 3px;
-}
-.why-before-after{
-  width: 100%;
-  padding: 0;
-  cursor: pointer;
-  text-align: left;
-}
-.why-before-after img,
-.why-before-after:hover img{
-  opacity: 1;
-  transform: none;
-}
-.why-before-after .why-after{
-  z-index: 1;
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path .35s ease;
-}
-.why-before-after::before{
-  content: '';
-  position: absolute;
-  inset: 0 auto 0 0;
-  z-index: 2;
-  width: 2px;
-  background: rgba(255,255,255,.92);
-  box-shadow: 0 0 14px rgba(15,23,42,.9);
-  transform: translateX(-100%);
-  transition: transform .35s ease;
-}
-.why-before-after:hover .why-after,
-.why-before-after:focus-visible .why-after,
-.why-before-after.is-after-visible .why-after{
-  clip-path: inset(0 0 0 0);
-}
-.why-before-after:hover::before,
-.why-before-after:focus-visible::before,
-.why-before-after.is-after-visible::before{
-  transform: translateX(calc(100% - 2px));
-}
-.why-photo-label{
-  position: absolute;
-  top: .65rem;
-  z-index: 4;
-  border-radius: 999px;
-  padding: .2rem .55rem;
-  background: rgba(15,23,42,.78);
-  color: #fff;
-  font-size: .68rem;
-  font-weight: 700;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-}
-.why-before-label{ left: .65rem; }
-.why-after-label{ right: .65rem; }
-.why-photo-overlay{
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(15,23,42,.88), rgba(15,23,42,.2));
-}
-.why-photo-caption{
-  position: relative;
-  z-index: 1;
-  height: 100%;
-  display: flex;
-  align-items: flex-end;
-  padding: 0.75rem;
-  font-size: 0.8rem;
-  line-height: 1.2;
-  color: #e5e7eb;
-}
-/* Галерея */
-.portfolio-main-wrap{
-  border-radius: 1.25rem;
-  overflow: hidden;
-  box-shadow: 0 18px 45px rgba(15,23,42,.35);
-  border: 1px solid rgba(148,163,184,.35);
-  background: radial-gradient(circle at top, rgba(15,23,42,.95), rgba(2,6,23,1));
-}
-.portfolio-main{
-  max-height: 520px;
-  object-fit: cover;
-  width: 100%;
-}
-.portfolio-main.is-loading{
-  opacity: .55;
-}
-@media (min-width: 768px) {
-  .portfolio-main{
-    height: 460px;
-  }
-}
-
-.portfolio-thumbs{
-  gap: .75rem;
-}
-.portfolio-thumb{
-  width: 92px;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid transparent;
-  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, opacity .18s ease;
-  opacity: .75;
-}
-.portfolio-thumb img{
-  width: 100%;
-  height: 68px;
-  object-fit: cover;
-}
-.portfolio-thumb:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(15,23,42,.55);
-  border-color: rgba(251,146,60,.7);
-  opacity: 1;
-}
-.portfolio-thumb.is-active{
-  border-color: rgba(251,146,60,1);
-  opacity: 1;
-}
-
-/* Обёртка для карты/адреса */
-.map-card{
-  border-radius: 1.5rem;
-  overflow: hidden;
-  border: 1px solid rgba(148,163,184,.35);
-  background: radial-gradient(circle at top, rgba(15,23,42,.9), rgba(15,23,42,1));
-  box-shadow: 0 24px 60px rgba(15,23,42,.95);
-}
-.map-iframe{
-  width: 100%;
-  border: none;
-  filter: saturate(1.1) contrast(1.02);
-}
-.map-actions{
-  display: flex;
-  justify-content: flex-end;
-  gap: .5rem;
-  padding: .65rem;
-  border-top: 1px solid rgba(148,163,184,.25);
-}
-
-/* Отзывы */
-.review-card{
-  background: radial-gradient(circle at top left, rgba(15,23,42,.9), rgba(15,23,42,1));
-  border-radius: 1.25rem;
-  border: 1px solid rgba(148,163,184,.35);
-  box-shadow: 0 20px 55px rgba(15,23,42,.85);
-}
-
-/* Scrollbar (опционально, под десктоп) */
-::-webkit-scrollbar{
-  width: 10px;
-}
-::-webkit-scrollbar-track{
-  background: #020617;
-}
-::-webkit-scrollbar-thumb{
-  background: linear-gradient(180deg, #f97316, #ea580c);
-  border-radius: 999px;
-}
-::-webkit-scrollbar-thumb:hover{
-  background: linear-gradient(180deg, #fb923c, #f97316);
-}
-    </style>
 </head>
 <body class="bg-slate-950 text-slate-50">
     <header class="border-b border-slate-800/70 bg-slate-950/90 backdrop-blur-lg sticky top-0 z-40">
@@ -449,9 +48,9 @@
             <div class="flex items-center justify-between h-20">
                 <!-- Логотип и бренд -->
                 <div class="flex-shrink-0 flex items-center gap-2">
-                    <img src="images/logotip/l-m.jpg" alt="SandBlast" class="brand-mark md:hidden">
-                    <img src="images/logotip/logo_transparent_smoothed_more.png" alt="Логотип SandBlast" class="brand-logo hidden md:block">
-                    <span class="text-2xl font-bold text-primary-600 ml-1 hidden md:inline">SandBlast</span>
+                    <img src="images/logotip/l-m.jpg" alt="Логотип ООО «Макстар»" class="brand-mark md:hidden">
+                    <img src="images/logotip/logo_transparent_smoothed_more.png" alt="Логотип ООО «Макстар»" class="brand-logo hidden md:block">
+                    <span class="text-2xl font-bold text-primary-600 ml-1 hidden md:inline">maxtar-nsk</span>
                 </div>
 
 <!-- Теглайн в шапке -->
@@ -461,6 +60,12 @@
         Пескоструйная&nbsp;обработка
     </span>
 </div>
+                <div class="header-contact">
+                    <span>Бердск, пер. Промышленный 2а/4</span>
+                    <span class="text-slate-600">•</span>
+                    <span>Режим: уточняйте по телефону</span>
+                    <a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer" data-metrika-goal="route_2gis" class="text-primary-300 hover:text-primary-200 underline underline-offset-4">Как проехать</a>
+                </div>
 
                 <!-- Десктопное меню -->
                 <div class="hidden md:block">
@@ -475,7 +80,7 @@
 
                 <!-- Телефон (виден на мобиле) -->
                 <div class="md:hidden flex items-center">
-                    <a href="tel:+79138954525" class="btn-primary text-sm py-2 px-3 mr-2 rounded-full shadow-lg shadow-orange-500/30 flex items-center">
+                    <a href="tel:+79138954525" data-metrika-goal="phone_click" class="btn-primary text-sm py-2 px-3 mr-2 rounded-full shadow-lg shadow-orange-500/30 flex items-center">
                         <span class="sr-only">Позвонить</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M3 5a2 2 0 012-2h1.28a1 1 0 01.96.73l1.02 3.58a1 1 0 01-.55 1.17l-1.2.6a1 1 0 00-.45 1.45 11.05 11.05 0 005.02 4.51 1 1 0 001.13-.2l1.46-1.46a1 1 0 011.18-.18l3.16 1.58a1 1 0 01.54.9V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -526,7 +131,7 @@
                             <span class="h-4 w-px bg-slate-600"></span>
                             <span class="text-xs text-amber-300 flex items-center gap-1">
                                 <span class="inline-flex h-1.5 w-6 bg-gradient-to-r from-amber-400/80 via-orange-500/90 to-amber-300/80 rounded-full"></span>
-                                до 3 классов очистки
+                                подготовка под покраску
                             </span>
                         </div>
 
@@ -546,12 +151,19 @@
                                 </svg>
                                 Рассчитать стоимость
                             </a>
-                            <a href="tel:+79138954525" class="bg-white border border-slate-300/70 text-slate-900 hover:border-primary-400/80 hover:text-slate-950 inline-flex items-center justify-center px-6 py-3 rounded-full shadow-lg shadow-slate-900/50 hover:shadow-xl transition-all duration-150">
+                            <a href="tel:+79138954525" data-metrika-goal="phone_click" class="bg-white border border-slate-300/70 text-slate-900 hover:border-primary-400/80 hover:text-slate-950 inline-flex items-center justify-center px-6 py-3 rounded-full shadow-lg shadow-slate-900/50 hover:shadow-xl transition-all duration-150">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M3 5a2 2 0 012-2h1.28a1 1 0 01.96.73l1.02 3.58a1 1 0 01-.55 1.17l-1.2.6a1 1 0 00-.45 1.45 11.05 11.05 0 005.02 4.51 1 1 0 001.13-.2l1.46-1.46a1 1 0 011.18-.18l3.16 1.58a1 1 0 01.54.9V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                 </svg>
                                 +7 (913) 895-45-25
                             </a>
+                        </div>
+
+                        <div class="quick-contact" aria-label="Быстрая связь">
+                            <a href="https://wa.me/79138954525" target="_blank" rel="noopener noreferrer" data-metrika-goal="whatsapp_click">WhatsApp</a>
+                            <a href="tg://resolve?phone=79138954525" data-metrika-goal="telegram_click">Telegram</a>
+                            <a href="https://vk.ru/club105621991" target="_blank" rel="noopener noreferrer" data-metrika-goal="vk_click">VK</a>
+                            <a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer" data-metrika-goal="route_2gis">Как проехать</a>
                         </div>
 
                         <div class="mt-8 flex flex-col sm:flex-row sm:items-center gap-4 text-sm text-neutral-300">
@@ -562,8 +174,8 @@
                                     <span class="inline-flex h-8 w-8 rounded-full bg-slate-800 border border-slate-700"></span>
                                 </div>
                                 <div>
-                                    <p class="font-semibold text-neutral-100">Более 500 обработанных комплектов дисков</p>
-                                    <p class="text-xs text-neutral-400">Работаем с частными клиентами и сервисами</p>
+                                    <p class="font-semibold text-neutral-100">ООО «Макстар»</p>
+                                    <p class="text-xs text-neutral-400">Частные, сервисные и промышленные задачи</p>
                                 </div>
                             </div>
                         </div>
@@ -578,8 +190,8 @@
                                 <div class="flex items-center justify-between gap-3">
                                     <div>
                                         <p class="text-xs uppercase tracking-[0.2em] text-slate-400 mb-1">ЛОКАЦИЯ</p>
-                                        <a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer" class="hover:text-primary-300 underline-offset-4 hover:underline transition-colors">НСО, г. Бердск, пер. Промышленный 2а/4</a>
-                                        <p class="text-xs text-neutral-400">Удобный выезд по региону и приём на площадке</p>
+                                        <a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer" data-metrika-goal="route_2gis" class="hover:text-primary-300 underline-offset-4 hover:underline transition-colors">НСО, г. Бердск, пер. Промышленный 2а/4</a>
+                                        <p class="text-xs text-neutral-400">Режим работы уточняйте по телефону</p>
                                     </div>
                                     <div class="relative">
                                         <div class="hero-marker hero-marker-pulse absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full h-7 w-7"></div>
@@ -601,8 +213,8 @@
                                         title="Карта: НСО, г. Бердск, пер. Промышленный 2а/4"
                                     ></iframe>
                                     <div class="map-actions">
-                                        <a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-primary-300 hover:text-primary-200 underline underline-offset-4">Открыть в 2ГИС</a>
-                                        <a href="https://yandex.ru/maps/?text=НСО%2C%20г.%20Бердск%2C%20пер.%20Промышленный%202а%2F4" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-primary-300 hover:text-primary-200 underline underline-offset-4">Открыть в Яндекс Картах</a>
+                                        <a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer" data-metrika-goal="route_2gis" class="text-xs font-semibold text-primary-300 hover:text-primary-200 underline underline-offset-4">Как проехать в 2ГИС</a>
+                                        <a href="https://yandex.ru/maps/?text=НСО%2C%20г.%20Бердск%2C%20пер.%20Промышленный%202а%2F4" target="_blank" rel="noopener noreferrer" data-metrika-goal="route_yandex" class="text-xs font-semibold text-primary-300 hover:text-primary-200 underline underline-offset-4">Открыть в Яндекс Картах</a>
                                     </div>
                                 </div>
 
@@ -693,15 +305,47 @@
             </div>
         </section>
 
+        <section id="prices" class="py-16 bg-neutral-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto text-center mb-10">
+                    <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">Ориентировочные цены</h2>
+                    <p class="text-neutral-600">Точную стоимость назовём после осмотра или фотографии изделия. Минимальный заказ — <strong>5 000 ₽</strong>.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <article class="price-card">
+                        <h3 class="font-semibold text-neutral-900 mb-2">Колёсные диски</h3>
+                        <p class="price-value mb-2">от 5 000 ₽</p>
+                        <p class="price-note">За комплект; окончательная цена зависит от диаметра и состояния покрытия.</p>
+                    </article>
+                    <article class="price-card">
+                        <h3 class="font-semibold text-neutral-900 mb-2">Рамы и детали авто</h3>
+                        <p class="price-value mb-2">от 1 500 ₽</p>
+                        <p class="price-note">Для элементов подвески, рам, кузовных и других металлических деталей.</p>
+                    </article>
+                    <article class="price-card">
+                        <h3 class="font-semibold text-neutral-900 mb-2">Металлоконструкции</h3>
+                        <p class="price-value mb-2">от 15 000 ₽</p>
+                        <p class="price-note">Или от 500 ₽/м² — для крупных конструкций после оценки объёма работ.</p>
+                    </article>
+                    <article class="price-card">
+                        <h3 class="font-semibold text-neutral-900 mb-2">Что влияет на цену</h3>
+                        <p class="price-note">Размер и сложность изделия, толщина ржавчины или старого покрытия, доступность поверхностей, объём и срочность работы.</p>
+                    </article>
+                </div>
+                <div class="mt-8 text-center">
+                    <a href="#contact" class="btn-primary inline-flex items-center justify-center rounded-full px-6 py-3" data-metrika-goal="price_request">Узнать точную стоимость</a>
+                </div>
+            </div>
+        </section>
+
         <!-- С чем мы работаем -->
         <section id="objects" class="py-16 bg-neutral-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-3xl md:text-4xl font-bold text-center text-neutral-900 mb-10">
-                    С какими объектами работаем
+                    Пескоструйная обработка дисков, рам и металлоконструкций
                 </h2>
                 <p class="text-center text-neutral-600 max-w-3xl mx-auto mb-10">
-                    Пескоструйная обработка SandBlast подходит для очистки и подготовки к покраске
-                    как небольших деталей, так и крупных конструкций.
+                    Абразивоструйная обработка помогает очистить металл от старой краски, коррозии и загрязнений перед нанесением защитного покрытия. Подход подбирается под материал, состояние поверхности и задачу.
                 </p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div class="card h-full text-center">
@@ -808,6 +452,7 @@
             class="portfolio-thumb is-active"
             data-src-desktop="images/job2/1_b2.jpg"
             data-src-mobile="images/job2/j1.jpg"
+            data-caption="Пример: колёсный диск. Задача — удалить старое покрытие и очаги коррозии; результат — поверхность готова к грунту или покраске. Срок оценивается после осмотра."
             aria-label="Открыть работу 1"
         >
             <img src="images/job2/j1.jpg" alt="Миниатюра 1" loading="lazy" decoding="async">
@@ -818,6 +463,7 @@
             class="portfolio-thumb"
             data-src-desktop="images/job2/2_b2.jpg"
             data-src-mobile="images/job2/j2.jpg"
+            data-caption="Пример: деталь автомобиля. Очищаем металл от старой краски и загрязнений, чтобы подготовить его к дальнейшей защите."
             aria-label="Открыть работу 2"
         >
             <img src="images/job2/j2.jpg" alt="Миниатюра 2" loading="lazy" decoding="async">
@@ -828,6 +474,7 @@
             class="portfolio-thumb"
             data-src-desktop="images/job2/3_bl2.jpg"
             data-src-mobile="images/job2/j3.jpg"
+            data-caption="Пример: автомобильный элемент. Степень и время обработки зависят от толщины покрытия, ржавчины и доступа к поверхности."
             aria-label="Открыть работу 3"
         >
             <img src="images/job2/j3.jpg" alt="Миниатюра 3" loading="lazy" decoding="async">
@@ -838,6 +485,7 @@
             class="portfolio-thumb"
             data-src-desktop="images/job2/4_b2.jpg"
             data-src-mobile="images/job2/j4.jpg"
+            data-caption="Пример: диск или металлоизделие. Результат пескоструя — равномерно подготовленная поверхность под последующее покрытие."
             aria-label="Открыть работу 4"
         >
             <img src="images/job2/j4.jpg" alt="Миниатюра 4" loading="lazy" decoding="async">
@@ -848,6 +496,7 @@
             class="portfolio-thumb"
             data-src-desktop="images/job2/5_bl2.jpg"
             data-src-mobile="images/job2/j5.jpg"
+            data-caption="Пример: очистка автомобильной детали. Перед началом согласуем объём работ, срок и способ дальнейшей защиты металла."
             aria-label="Открыть работу 5"
         >
             <img src="images/job2/j5.jpg" alt="Миниатюра 5" loading="lazy" decoding="async">
@@ -858,11 +507,13 @@
             class="portfolio-thumb"
             data-src-desktop="images/job2/6_b2.jpg"
             data-src-mobile="images/job2/j6.jpg"
+            data-caption="Пример: работа с металлической поверхностью. Точную цену и срок сообщаем после оценки изделия или фотографии."
             aria-label="Открыть работу 6"
         >
             <img src="images/job2/j6.jpg" alt="Миниатюра 6" loading="lazy" decoding="async">
         </button>
     </div>
+    <p class="portfolio-caption" aria-live="polite">Пример: колёсный диск. Задача — удалить старое покрытие и очаги коррозии; результат — поверхность готова к грунту или покраске. Срок оценивается после осмотра.</p>
 </div>
 
                 <!-- Группа 2: Промышленные объекты -->
@@ -883,6 +534,7 @@
                         <button type="button" class="portfolio-thumb is-active"
         data-gallery="industry"
         data-src="images/prom_job/photo-1647586028042-1de4d4a935e6.avif"
+        data-caption="Пример: промышленная металлическая поверхность. Очищаем от старых покрытий, ржавчины и загрязнений перед защитной окраской."
         aria-label="Открыть работу 1">
     <picture>
         <source srcset="images/prom_job/photo-1647586028042-1de4d4a935e6.avif" type="image/avif">
@@ -891,138 +543,82 @@
              loading="lazy" decoding="async">
     </picture>
 </button>
-                        <button type="button" class="portfolio-thumb" data-gallery="industry" data-src="images/prom_job/photo-1539361599489-e7ff367e4abf.avif" aria-label="Открыть работу 2">
+                        <button type="button" class="portfolio-thumb" data-gallery="industry" data-src="images/prom_job/photo-1539361599489-e7ff367e4abf.avif" data-caption="Пример: металлоконструкция. Срок зависит от площади, сложности изделия и толщины старого покрытия." aria-label="Открыть работу 2">
                             <img src="images/prom_job/photo-1539361599489-e7ff367e4abf.avif" alt="Миниатюра 2" loading="lazy" decoding="async">
                         </button>
-                        <button type="button" class="portfolio-thumb" data-gallery="industry" data-src="images/prom_job/photo-1564182842519-8a3b2af3e228.avif" aria-label="Открыть работу 3">
+                        <button type="button" class="portfolio-thumb" data-gallery="industry" data-src="images/prom_job/photo-1564182842519-8a3b2af3e228.avif" data-caption="Пример: подготовка поверхности к покраске. Убираем коррозию и загрязнения, сохраняя геометрию изделия." aria-label="Открыть работу 3">
                             <img src="images/prom_job/photo-1564182842519-8a3b2af3e228.avif" alt="Миниатюра 3" loading="lazy" decoding="async">
                         </button>
-                        <button type="button" class="portfolio-thumb" data-gallery="industry" data-src="images/prom_job/photo-1747999461210-a56f72294428.avif" aria-label="Открыть работу 4">
+                        <button type="button" class="portfolio-thumb" data-gallery="industry" data-src="images/prom_job/photo-1747999461210-a56f72294428.avif" data-caption="Пример: крупная деталь или конструкция. Для расчёта важны размеры, доступ к поверхности и требуемая степень очистки." aria-label="Открыть работу 4">
                             <img src="images/prom_job/photo-1747999461210-a56f72294428.avif" alt="Миниатюра 4" loading="lazy" decoding="async">
                         </button>
-                        <button type="button" class="portfolio-thumb" data-gallery="industry" data-src="images/prom_job/photo-1747999703278-ef065c39cb18.avif" aria-label="Открыть работу 5">
+                        <button type="button" class="portfolio-thumb" data-gallery="industry" data-src="images/prom_job/photo-1747999703278-ef065c39cb18.avif" data-caption="Пример: очистка металла перед нанесением защитного покрытия. Срок и стоимость согласуются до начала работы." aria-label="Открыть работу 5">
                             <img src="images/prom_job/photo-1747999703278-ef065c39cb18.avif" alt="Миниатюра 5" loading="lazy" decoding="async">
                         </button>
-                        <button type="button" class="portfolio-thumb" data-gallery="industry" data-src="images/prom_job/photo-1748348812466-8e29e1348f73.avif" aria-label="Открыть работу 6">
+                        <button type="button" class="portfolio-thumb" data-gallery="industry" data-src="images/prom_job/photo-1748348812466-8e29e1348f73.avif" data-caption="Пример: производственная задача. Пескоструйная обработка готовит поверхность к грунту, покраске или другой защите." aria-label="Открыть работу 6">
                             <img src="images/prom_job/photo-1748348812466-8e29e1348f73.avif" alt="Миниатюра 6" loading="lazy" decoding="async">
                         </button>
                     </div>
+                    <p class="portfolio-caption" aria-live="polite">Пример: промышленная металлическая поверхность. Очищаем от старых покрытий, ржавчины и загрязнений перед защитной окраской.</p>
                 </div>
             </div>
         </section>
 
-        <!-- О нас -->
         <section id="about" class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    <div>
-                        <h2 class="text-4xl md:text-5xl font-bold text-neutral-900 mb-8">Почему выбирают нас</h2>
-                        <p class="text-lg text-neutral-600 mb-6">
-                            <strong>SandBlast</strong> — это команда специалистов по пескоструйной обработке
-                            с опытом работы с автодисками, кузовами и промышленными объектами. Мы используем
-                            современное оборудование и качественные материалы.
-                        </p>
-                        <ul class="space-y-4">
-                            <li class="flex items-start">
-                                <svg class="h-6 w-6 text-primary-500 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                </svg>
-                                <span class="text-neutral-700">Опытные мастера с допусками к работам</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg class="h-6 w-6 text-primary-500 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                </svg>
-                                <span class="text-neutral-700">Подробная консультация и понятная смета перед началом работ</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg class="h-6 w-6 text-primary-500 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                </svg>
-                                <span class="text-neutral-700">Современное оборудование и контролируемое качество обработки</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg class="h-6 w-6 text-primary-500 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                </svg>
-                                <span class="text-neutral-700">Работаем с объектами разного масштаба — от одного комплекта дисков до крупных конструкций</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="relative">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="space-y-4">
-                                <div class="why-photo-card h-40 rounded-2xl overflow-hidden relative">
-                                    <img src="images/process/photo-1748348812466-8e29e1348f73.avif" alt="Процесс пескоструйной обработки" loading="lazy" decoding="async">
-                                    <div class="why-photo-overlay"></div>
-                                    <div class="why-photo-caption">
-                                        <span>Фото процесса пескоструйной обработки</span>
-                                    </div>
-                                </div>
-                                <div class="why-photo-card h-40 rounded-2xl overflow-hidden relative">
-                                    <img src="images/fragment/photo-1766340744738-0c3355ea9879.avif" alt="Фрагмент обработанной поверхности" loading="lazy" decoding="async">
-                                    <div class="why-photo-overlay"></div>
-                                    <div class="why-photo-caption">
-                                        <span>Фрагменты обработанных поверхностей</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space-y-4 mt-6">
-                                <div class="why-photo-card h-40 rounded-2xl overflow-hidden relative">
-                                    <img src="images/exemple/photo-1673201159941-68fcdbbb4fa1.avif" alt="Пример промышленного объекта" loading="lazy" decoding="async">
-                                    <div class="why-photo-overlay"></div>
-                                    <div class="why-photo-caption">
-                                        <span>Пример промышленного объекта</span>
-                                    </div>
-                                </div>
-                                <button type="button" class="why-photo-card why-before-after h-40 rounded-2xl overflow-hidden relative" aria-pressed="false" aria-label="Показать очищенную поверхность металла">
-                                    <img src="images/before/photo-1684310978150-5cabf9542b7d.avif" alt="Коррозия на металлической поверхности" loading="lazy" decoding="async">
-                                    <img class="why-after" src="images/after/photo-1766340744738-0c3355ea9879.avif" alt="Очищенная поверхность металла" loading="lazy" decoding="async">
-                                    <span class="why-photo-label why-before-label">Коррозия</span>
-                                    <span class="why-photo-label why-after-label">Металл</span>
-                                    <div class="why-photo-overlay"></div>
-                                    <div class="why-photo-caption">
-                                        <span>Состояние поверхности — наведите или нажмите</span>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="max-w-3xl mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold text-neutral-900 mb-6">ООО «Макстар»: подготовка металла к защите</h2>
+                    <p class="text-lg text-neutral-600 mb-6">
+                        Выполняем пескоструйные работы в Бердске: очищаем поверхности от ржавчины, грязи, копоти, гари и старых покрытий, чтобы подготовить их к грунту или покраске.
+                    </p>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-neutral-700">
+                        <li class="card p-4">Колёсные диски, кузова, лодки, рамы, фасады и конструкции.</li>
+                        <li class="card p-4">Абразивоструйная очистка подбирается под материал и задачу.</li>
+                        <li class="card p-4">Оценим объём и стоимость по фотографии или после осмотра.</li>
+                        <li class="card p-4">Согласуем подготовку поверхности для дальнейшего покрытия.</li>
+                    </ul>
                 </div>
+
+                <div id="cases" class="grid grid-cols-1 lg:grid-cols-2 gap-7">
+                    <article class="case-card">
+                        <div class="case-media">
+                            <img src="images/examples/example-wheel-before-after.webp" alt="Иллюстративное сравнение: корродированный и очищенный колёсный диск" width="1440" height="720" loading="lazy" decoding="async">
+                            <span class="case-label case-label-before">До очистки</span>
+                            <span class="case-label case-label-after">После</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-neutral-900 mb-2">Колёсный диск</h3>
+                            <p class="text-neutral-600">Задача: удалить старую краску, налёт и очаги коррозии. Результат: равномерно очищенная поверхность, готовая к дальнейшему покрытию.</p>
+                        </div>
+                    </article>
+                    <article class="case-card">
+                        <div class="case-media">
+                            <img src="images/examples/example-frame-before-after.webp" alt="Иллюстративное сравнение: ржавая и очищенная металлическая деталь" width="1440" height="720" loading="lazy" decoding="async">
+                            <span class="case-label case-label-before">До очистки</span>
+                            <span class="case-label case-label-after">После</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-neutral-900 mb-2">Рама или металлоизделие</h3>
+                            <p class="text-neutral-600">Задача: убрать толстый слой ржавчины и старое покрытие. Результат: поверхность подготовлена для грунта, покраски или другой защиты.</p>
+                        </div>
+                    </article>
+                </div>
+                <p class="case-disclaimer mt-6 pl-3">Это иллюстративные примеры результата, созданные для сайта. После появления фотографий реальных заказов их можно заменить без переделки блока.</p>
             </div>
         </section>
 
         <!-- Отзывы -->
         <section id="reviews" class="py-16 bg-slate-950">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-10">Отзывы клиентов</h2>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <article class="review-card p-6">
-                        <p class="text-sm text-neutral-300 mb-4">
-                            «Отдавал комплект дисков после нескольких сезонов — были коррозия и сколы.
-                            После пескоструя и покраски выглядят как новые. Сделали быстро и аккуратно.»
-                        </p>
-                        <p class="text-sm font-semibold text-neutral-100">Алексей, владелец Toyota</p>
-                    </article>
-
-                    <article class="review-card p-6">
-                        <p class="text-sm text-neutral-300 mb-4">
-                            «Потребовалась обработка части металлоконструкций на объекте. Ребята оперативно выехали,
-                            отработали в оговорённые сроки, помогли с подготовкой под последующую окраску.»
-                        </p>
-                        <p class="text-sm font-semibold text-neutral-100">Дмитрий, представитель подрядчика</p>
-                    </article>
-
-                    <article class="review-card p-6">
-                        <p class="text-sm text-neutral-300 mb-4">
-                            «Хороший сервис и понятное общение. По телефону сразу обозначили примерную стоимость и сроки,
-                            по факту всё совпало. Могу рекомендовать.»
-                        </p>
-                        <p class="text-sm font-semibold text-neutral-100">Игорь, частный клиент</p>
-                    </article>
-                </div>
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Отзывы клиентов</h2>
+                <p class="text-neutral-300 mb-8">Не публикуем вымышленные отзывы. Реальные отклики и новые материалы будут собираться в официальном сообществе ООО «Макстар».</p>
+                <article class="review-card review-source">
+                    <div>
+                        <p class="text-lg font-semibold text-white mb-2">Официальное сообщество во VK</p>
+                        <p class="text-sm text-neutral-300 mb-5">Читайте актуальные отзывы и задавайте вопросы в сообщениях сообщества.</p>
+                        <a href="https://vk.ru/club105621991" target="_blank" rel="noopener noreferrer" data-metrika-goal="vk_reviews_click" class="btn-primary inline-flex items-center justify-center rounded-full px-6 py-3">Открыть отзывы во VK</a>
+                    </div>
+                </article>
             </div>
         </section>
 
@@ -1031,7 +627,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Связаться с SandBlast</h2>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Связаться с ООО «Макстар»</h2>
                         <p class="text-neutral-300 mb-6">
                             Расскажите о задаче, пришлите фото или опишите объект — мы предложим варианты обработки и ориентировочную стоимость.
                         </p>
@@ -1045,18 +641,7 @@
                                 </svg>
                                 <div>
                                     <p class="text-sm font-semibold text-neutral-100">Телефон</p>
-                                    <a href="tel:+79138954525" class="text-base text-primary-400 hover:text-primary-300">+7 (913) 895-45-25</a>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                                    <path d="M4.5 6.75 12 12l7.5-5.25" />
-                                    <path d="M4.5 6.75A2.25 2.25 0 0 1 6.75 4.5h10.5A2.25 2.25 0 0 1 19.5 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 17.25Z" />
-                                </svg>
-                                <div>
-                                    <p class="text-sm font-semibold text-neutral-100">E-mail</p>
-                                    <a href="mailto:marketing@nioch-appl.ru" class="text-base text-primary-400 hover:text-primary-300">marketing@nioch-appl.ru</a>
+                                    <a href="tel:+79138954525" data-metrika-goal="phone_click" class="text-base text-primary-400 hover:text-primary-300">+7 (913) 895-45-25</a>
                                 </div>
                             </div>
 
@@ -1073,6 +658,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="social-links">
+                            <a href="https://wa.me/79138954525" target="_blank" rel="noopener noreferrer" data-metrika-goal="whatsapp_click">Написать в WhatsApp</a>
+                            <a href="tg://resolve?phone=79138954525" data-metrika-goal="telegram_click">Написать в Telegram</a>
+                            <a href="https://vk.ru/club105621991" target="_blank" rel="noopener noreferrer" data-metrika-goal="vk_click">Сообщество VK</a>
+                        </div>
                     </div>
 
                     <div class="contact-card rounded-3xl p-8">
@@ -1080,7 +670,7 @@
                         <p class="text-sm text-neutral-300 mb-6">
                             Укажите контакты и кратко опишите задачу — мы свяжемся с вами и обсудим детали.
                         </p>
-                        <form id="lead-form" method="POST" action="{{ route('lead.send') }}" class="space-y-4">
+                        <form id="lead-form" method="POST" action="{{ route('lead.send') }}" enctype="multipart/form-data" class="space-y-4">
                             @csrf
                             <div>
                                 <label for="name" class="block text-sm font-medium text-neutral-300 mb-1">Имя</label>
@@ -1094,6 +684,12 @@
                                 <label for="message" class="block text-sm font-medium text-neutral-300 mb-1">Описание задачи</label>
                                 <textarea id="message" rows="4" class="contact-input w-full px-4 py-3 rounded-xl text-sm" placeholder="Например, пескоструйная обработка дисков или металлоконструкции" required name="message"></textarea>
                             </div>
+                            <label for="lead-photo" class="upload-label">
+                                <span class="text-sm font-semibold">Прикрепить фото детали</span>
+                                <span class="text-xs">JPG, PNG, WebP или HEIC — до 10 МБ. Фото поможет точнее оценить стоимость.</span>
+                                <input id="lead-photo" type="file" name="photo" accept="image/jpeg,image/png,image/webp,image/heic,image/heif">
+                                <span id="lead-photo-status" class="upload-status">Фото не выбрано</span>
+                            </label>
                             <button type="submit" class="btn-primary w-full py-3 rounded-xl mt-2 flex items-center justify-center gap-2">
                                 <span>Отправить заявку</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
@@ -1112,9 +708,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
-                    <img src="images/logotip/l-m.jpg" alt="SandBlast" class="h-10 w-10 rounded-full object-cover">
+                    <img src="images/logotip/l-m.jpg" alt="ООО «Макстар»" class="h-10 w-10 rounded-full object-cover">
                     <div>
-                        <p class="text-sm font-semibold text-white">SandBlast</p>
+                        <p class="text-sm font-semibold text-white">ООО «Макстар»</p>
                         <p class="text-xs text-neutral-500">Пескоструйная обработка в Бердске и НСО</p>
                     </div>
                 </div>
@@ -1129,180 +725,16 @@
 </div>
 <div class="text-xs text-neutral-500 md:text-right">
 
-                    <p>Телефон: <a href="tel:+79138954525" class="text-primary-400 hover:text-primary-300">+7 (913) 895-45-25</a></p>
-                    <p>E-mail: <a href="mailto:marketing@nioch-appl.ru" class="text-primary-400 hover:text-primary-300">marketing@nioch-appl.ru</a></p>
+                    <p>Телефон: <a href="tel:+79138954525" data-metrika-goal="phone_click" class="text-primary-400 hover:text-primary-300">+7 (913) 895-45-25</a></p>
+                    <p><a href="https://vk.ru/club105621991" target="_blank" rel="noopener noreferrer" data-metrika-goal="vk_click" class="text-primary-400 hover:text-primary-300">Мы во VK</a></p>
                 </div>
             </div>
             <div class="border-t border-neutral-800 mt-6 pt-4 text-sm text-center text-neutral-500">
-                <p>© 2026 SandBlast. Все права защищены.</p>
+                <p>© 2026 ООО «Макстар». Все права защищены.</p>
             </div>
         </div>
     </footer>
 
-    <script>
-    (function () {
-        const form = document.getElementById('lead-form');
-        if (!form) return;
-
-        const toast = document.getElementById('toast-success');
-        const toastClose = document.getElementById('toast-success-close');
-
-        function showToast() {
-            if (!toast) return;
-            toast.classList.remove('hidden');
-            toast.classList.add('opacity-100');
-            setTimeout(hideToast, 5000);
-        }
-
-        function hideToast() {
-            if (!toast) return;
-            toast.classList.add('hidden');
-        }
-
-        if (toastClose) {
-            toastClose.addEventListener('click', function () {
-                hideToast();
-            });
-        }
-
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const submitButton = form.querySelector('button[type="submit"]');
-            const originalText = submitButton ? submitButton.innerHTML : null;
-
-            if (submitButton) {
-                submitButton.disabled = true;
-                submitButton.classList.add('opacity-70', 'cursor-wait');
-                submitButton.innerHTML = '<span>Отправляем...</span>';
-            }
-
-            const formData = new FormData(form);
-
-            fetch(form.action, {
-                method: 'POST',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRF-TOKEN': form.querySelector('input[name="_token"]').value,
-                    'Accept': 'application/json',
-                },
-                body: formData
-            })
-            .then(async (response) => {
-                if (!response.ok) {
-                    throw new Error('Ошибка отправки');
-                }
-                // Пытаемся прочитать JSON, если Laravel вернет
-                try {
-                    const data = await response.json();
-                    console.log('Lead response:', data);
-                } catch (e) {
-                    // Если не JSON — просто игнорируем
-                }
-
-                form.reset();
-                showToast();
-            })
-            .catch((error) => {
-                console.error(error);
-                alert('Не удалось отправить заявку. Попробуйте еще раз или свяжитесь по телефону.');
-            })
-            .finally(() => {
-                if (submitButton) {
-                    submitButton.disabled = false;
-                    submitButton.classList.remove('opacity-70', 'cursor-wait');
-                    submitButton.innerHTML = originalText;
-                }
-            });
-        });
-    })();
-</script>
-
-<script>
-        // Мобильное меню
-        document.getElementById('mobile-menu-button').addEventListener('click', function () {
-            const menu = document.getElementById('mobile-menu');
-            const expanded = this.getAttribute('aria-expanded') === 'true';
-            this.setAttribute('aria-expanded', String(!expanded));
-            menu.classList.toggle('hidden');
-        });
-
-        // Галерея "Наши работы"
-        document.querySelectorAll('.portfolio-group').forEach((group) => {
-    const mainImg = group.querySelector('.portfolio-main');
-    const thumbs = group.querySelectorAll('.portfolio-thumb');
-
-    if (!mainImg || !thumbs.length) return;
-
-    const desktopMainSrc = mainImg.getAttribute('data-src-desktop');
-    const mobileMainSrc = mainImg.getAttribute('data-src-mobile');
-
-    const updateMainSrc = (desktopSrc, mobileSrc) => {
-        const isMobile = window.matchMedia('(max-width: 767px)').matches;
-        const target = isMobile ? (mobileSrc || desktopSrc) : (desktopSrc || mobileSrc);
-        if (target && mainImg.getAttribute('src') !== target) {
-            mainImg.classList.add('is-loading');
-            mainImg.src = target;
-        }
-    };
-
-    mainImg.addEventListener('load', () => mainImg.classList.remove('is-loading'));
-
-    // Стартовое изображение: подбираем под устройство
-    if (desktopMainSrc || mobileMainSrc) {
-        updateMainSrc(desktopMainSrc, mobileMainSrc);
-    }
-
-    thumbs.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            const desktopSrc = btn.getAttribute('data-src-desktop') || btn.getAttribute('data-src');
-            const mobileSrc = btn.getAttribute('data-src-mobile') || desktopSrc;
-
-            updateMainSrc(desktopSrc, mobileSrc);
-
-            // Подсветка активной миниатюры
-            thumbs.forEach((b) => b.classList.remove('is-active'));
-            btn.classList.add('is-active');
-        });
-    });
-});
-
-        // Подгружаем большие изображения после первого рендера, чтобы первое
-        // переключение в галерее не ждало сеть. На экономных соединениях не грузим.
-        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        const shouldPreloadGallery = !connection || (!connection.saveData && !/2g/.test(connection.effectiveType || ''));
-
-        if (shouldPreloadGallery) {
-            const preloadGalleryImages = () => {
-                const isMobile = window.matchMedia('(max-width: 767px)').matches;
-
-                document.querySelectorAll('.portfolio-thumb').forEach((thumb) => {
-                    const desktopSrc = thumb.getAttribute('data-src-desktop') || thumb.getAttribute('data-src');
-                    const mobileSrc = thumb.getAttribute('data-src-mobile') || desktopSrc;
-                    const source = isMobile ? mobileSrc : desktopSrc;
-
-                    if (source) {
-                        const image = new Image();
-                        image.decoding = 'async';
-                        image.src = source;
-                    }
-                });
-            };
-
-            if ('requestIdleCallback' in window) {
-                window.requestIdleCallback(preloadGalleryImages, { timeout: 2500 });
-            } else {
-                window.setTimeout(preloadGalleryImages, 1200);
-            }
-        }
-
-        document.querySelectorAll('.why-before-after').forEach((card) => {
-            card.addEventListener('click', () => {
-                const isVisible = card.classList.toggle('is-after-visible');
-                card.setAttribute('aria-pressed', String(isVisible));
-            });
-        });
-</script>
 <div id="toast-success" class="fixed inset-x-0 top-4 flex justify-center z-50 pointer-events-none hidden">
     <div class="bg-emerald-500 text-white text-sm md:text-base px-4 md:px-6 py-3 md:py-3.5 rounded-full shadow-2xl flex items-center gap-2 md:gap-3 pointer-events-auto">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
