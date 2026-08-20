@@ -6,7 +6,7 @@ if (metrikaId) {
         m[i].l = 1 * new Date();
         k = e.createElement(t);
         a = e.getElementsByTagName(t)[0];
-        k.async = 1;
+        k.async = true;
         k.src = r;
         a.parentNode.insertBefore(k, a);
     })(window, document, 'script', `https://mc.yandex.ru/metrika/tag.js?id=${metrikaId}`, 'ym');
@@ -28,172 +28,139 @@ document.querySelectorAll('[data-metrika-goal]').forEach((element) => {
     element.addEventListener('click', () => trackGoal(element.dataset.metrikaGoal));
 });
 
-(function () {
-        const form = document.getElementById('lead-form');
-        if (!form) return;
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
 
-        const toast = document.getElementById('toast-success');
-        const toastClose = document.getElementById('toast-success-close');
-        const photoInput = document.getElementById('lead-photo');
-        const photoStatus = document.getElementById('lead-photo-status');
+const setMenuState = (open) => {
+    if (!menuToggle || !mobileMenu) return;
 
-        function showToast() {
-            if (!toast) return;
-            toast.classList.remove('hidden');
-            toast.classList.add('opacity-100');
-            setTimeout(hideToast, 5000);
-        }
+    menuToggle.classList.toggle('is-active', open);
+    mobileMenu.classList.toggle('is-open', open);
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    mobileMenu.setAttribute('aria-hidden', String(!open));
+    document.body.classList.toggle('menu-open', open);
+};
 
-        function hideToast() {
-            if (!toast) return;
-            toast.classList.add('hidden');
-        }
-
-        if (toastClose) {
-            toastClose.addEventListener('click', function () {
-                hideToast();
-            });
-        }
-
-        if (photoInput && photoStatus) {
-            photoInput.addEventListener('change', () => {
-                const file = photoInput.files?.[0];
-                photoStatus.textContent = file
-                    ? `Выбрано: ${file.name}`
-                    : 'Фото не выбрано';
-            });
-        }
-
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const submitButton = form.querySelector('button[type="submit"]');
-            const originalText = submitButton ? submitButton.innerHTML : null;
-
-            if (submitButton) {
-                submitButton.disabled = true;
-                submitButton.classList.add('opacity-70', 'cursor-wait');
-                submitButton.innerHTML = '<span>Отправляем...</span>';
-            }
-
-            const formData = new FormData(form);
-
-            fetch(form.action, {
-                method: 'POST',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRF-TOKEN': form.querySelector('input[name="_token"]').value,
-                    'Accept': 'application/json',
-                },
-                body: formData
-            })
-            .then(async (response) => {
-                if (!response.ok) {
-                    throw new Error('Ошибка отправки');
-                }
-                // Пытаемся прочитать JSON, если Laravel вернет
-                try {
-                    const data = await response.json();
-                    console.log('Lead response:', data);
-                } catch (e) {
-                    // Если не JSON — просто игнорируем
-                }
-
-                form.reset();
-                if (photoStatus) photoStatus.textContent = 'Фото не выбрано';
-                showToast();
-                trackGoal('lead_submit');
-            })
-            .catch((error) => {
-                console.error(error);
-                alert('Не удалось отправить заявку. Попробуйте еще раз или свяжитесь по телефону.');
-            })
-            .finally(() => {
-                if (submitButton) {
-                    submitButton.disabled = false;
-                    submitButton.classList.remove('opacity-70', 'cursor-wait');
-                    submitButton.innerHTML = originalText;
-                }
-            });
-        });
-    })();
-
-// Мобильное меню
-        document.getElementById('mobile-menu-button')?.addEventListener('click', function () {
-            const menu = document.getElementById('mobile-menu');
-            const expanded = this.getAttribute('aria-expanded') === 'true';
-            this.setAttribute('aria-expanded', String(!expanded));
-            menu.classList.toggle('hidden');
-        });
-
-        // Галерея "Наши работы"
-        document.querySelectorAll('.portfolio-group').forEach((group) => {
-    const mainImg = group.querySelector('.portfolio-main');
-    const thumbs = group.querySelectorAll('.portfolio-thumb');
-    const caption = group.querySelector('.portfolio-caption');
-
-    if (!mainImg || !thumbs.length) return;
-
-    const desktopMainSrc = mainImg.getAttribute('data-src-desktop');
-    const mobileMainSrc = mainImg.getAttribute('data-src-mobile');
-
-    const updateMainSrc = (desktopSrc, mobileSrc) => {
-        const isMobile = window.matchMedia('(max-width: 767px)').matches;
-        const target = isMobile ? (mobileSrc || desktopSrc) : (desktopSrc || mobileSrc);
-        if (target && mainImg.getAttribute('src') !== target) {
-            mainImg.classList.add('is-loading');
-            mainImg.src = target;
-        }
-    };
-
-    mainImg.addEventListener('load', () => mainImg.classList.remove('is-loading'));
-
-    // Стартовое изображение: подбираем под устройство
-    if (desktopMainSrc || mobileMainSrc) {
-        updateMainSrc(desktopMainSrc, mobileMainSrc);
-    }
-
-    thumbs.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            const desktopSrc = btn.getAttribute('data-src-desktop') || btn.getAttribute('data-src');
-            const mobileSrc = btn.getAttribute('data-src-mobile') || desktopSrc;
-
-            updateMainSrc(desktopSrc, mobileSrc);
-
-            // Подсветка активной миниатюры
-            thumbs.forEach((b) => b.classList.remove('is-active'));
-            btn.classList.add('is-active');
-            if (caption && btn.dataset.caption) caption.textContent = btn.dataset.caption;
-            trackGoal('portfolio_view');
-        });
-    });
+menuToggle?.addEventListener('click', () => {
+    setMenuState(menuToggle.getAttribute('aria-expanded') !== 'true');
 });
 
-        // Подгружаем большие изображения после первого рендера, чтобы первое
-        // переключение в галерее не ждало сеть. На экономных соединениях не грузим.
-        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        const shouldPreloadGallery = !connection || (!connection.saveData && !/2g/.test(connection.effectiveType || ''));
+mobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMenuState(false));
+});
 
-        if (shouldPreloadGallery) {
-            const preloadGalleryImages = () => {
-                const isMobile = window.matchMedia('(max-width: 767px)').matches;
+window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setMenuState(false);
+});
 
-                document.querySelectorAll('.portfolio-thumb').forEach((thumb) => {
-                    const desktopSrc = thumb.getAttribute('data-src-desktop') || thumb.getAttribute('data-src');
-                    const mobileSrc = thumb.getAttribute('data-src-mobile') || desktopSrc;
-                    const source = isMobile ? mobileSrc : desktopSrc;
+const desktopMedia = window.matchMedia('(min-width: 921px)');
+const closeMenuOnDesktop = (event) => {
+    if (event.matches) setMenuState(false);
+};
 
-                    if (source) {
-                        const image = new Image();
-                        image.decoding = 'async';
-                        image.src = source;
-                    }
-                });
-            };
+if (typeof desktopMedia.addEventListener === 'function') {
+    desktopMedia.addEventListener('change', closeMenuOnDesktop);
+} else if (typeof desktopMedia.addListener === 'function') {
+    desktopMedia.addListener(closeMenuOnDesktop);
+}
 
-            if ('requestIdleCallback' in window) {
-                window.requestIdleCallback(preloadGalleryImages, { timeout: 2500 });
-            } else {
-                window.setTimeout(preloadGalleryImages, 1200);
-            }
+const form = document.getElementById('leadForm');
+const photoInput = document.getElementById('leadPhoto');
+const photoStatus = document.getElementById('photoStatus');
+const formMessage = document.getElementById('formMessage');
+const successToast = document.getElementById('successToast');
+const toastClose = document.getElementById('toastClose');
+const maxPhotoSize = 10 * 1024 * 1024;
+
+const showFormMessage = (message, type = 'error') => {
+    if (!formMessage) return;
+
+    formMessage.textContent = message;
+    formMessage.className = `form-message form-message--${type} is-visible`;
+};
+
+const clearFormMessage = () => {
+    if (!formMessage) return;
+
+    formMessage.textContent = '';
+    formMessage.className = 'form-message';
+};
+
+const showToast = () => {
+    successToast?.classList.add('is-visible');
+    window.setTimeout(() => successToast?.classList.remove('is-visible'), 6000);
+};
+
+toastClose?.addEventListener('click', () => successToast?.classList.remove('is-visible'));
+
+photoInput?.addEventListener('change', () => {
+    clearFormMessage();
+    const file = photoInput.files?.[0];
+
+    if (!file) {
+        if (photoStatus) photoStatus.textContent = 'Фото не выбрано';
+        return;
+    }
+
+    if (file.size > maxPhotoSize) {
+        photoInput.value = '';
+        if (photoStatus) photoStatus.textContent = 'Фото не выбрано';
+        showFormMessage('Файл больше 10 МБ. Выберите фотографию меньшего размера.');
+        return;
+    }
+
+    if (photoStatus) photoStatus.textContent = file.name;
+});
+
+form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    clearFormMessage();
+
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalText = submitButton?.textContent;
+
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Отправляем…';
+    }
+
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': form.querySelector('input[name="_token"]')?.value ?? '',
+                'Accept': 'application/json',
+            },
+            body: new FormData(form),
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            const validationMessage = data.errors
+                ? Object.values(data.errors).flat().join(' ')
+                : data.message;
+            throw new Error(validationMessage || 'Не удалось отправить заявку. Позвоните нам по телефону.');
         }
+
+        form.reset();
+        if (photoStatus) photoStatus.textContent = 'Фото не выбрано';
+        showToast();
+        trackGoal('lead_submit');
+    } catch (error) {
+        showFormMessage(error.message || 'Не удалось отправить заявку. Позвоните нам по телефону.');
+        formMessage?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } finally {
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = originalText || 'Отправить заявку';
+        }
+    }
+});
