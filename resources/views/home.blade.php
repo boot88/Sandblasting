@@ -23,6 +23,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         html { scroll-behavior: smooth !important; scroll-padding-top: 88px; }
+        .toast:not(.is-visible) { pointer-events: none !important; }
         @media (max-width: 920px) {
             .mobile-menu {
                 position: absolute !important;
