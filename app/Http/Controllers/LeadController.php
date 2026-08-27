@@ -18,15 +18,15 @@ class LeadController extends Controller
             'name' => ['required', 'string', 'max:120'],
             'phone' => ['required', 'string', 'max:32', 'regex:/^[\d\s\-+()]+$/'],
             'message' => ['required', 'string', 'max:5000'],
-            'photo' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,heic,heif', 'max:10240'],
+            'photo' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,heic,heif,avif', 'max:25600'],
             'website' => ['nullable', 'string', 'max:0'],
         ], [
             'name.required' => 'Укажите ваше имя.',
             'phone.required' => 'Укажите номер телефона.',
             'phone.regex' => 'Проверьте формат номера телефона.',
             'message.required' => 'Кратко опишите, что нужно обработать.',
-            'photo.mimes' => 'Фото должно быть в формате JPG, PNG, WebP или HEIC.',
-            'photo.max' => 'Размер фотографии не должен превышать 10 МБ.',
+            'photo.mimes' => 'Фото должно быть в формате JPG, PNG, WebP, HEIC или AVIF.',
+            'photo.max' => 'Размер фотографии не должен превышать 25 МБ.',
         ]);
 
         if ($request->filled('website')) {
@@ -52,7 +52,7 @@ class LeadController extends Controller
             'phone' => trim($data['phone']),
             'message' => trim($data['message']),
             'page' => $request->headers->get('referer') ?? $request->fullUrl(),
-            'created_at' => now()->format('d.m.Y H:i'),
+            'created_at' => now(config('app.timezone'))->format('d.m.Y H:i'),
             'user_agent' => $request->userAgent(),
             'ip' => $request->ip(),
             'photo_name' => $photoData['name'] ?? null,
@@ -213,7 +213,8 @@ class LeadController extends Controller
                 return null;
             }
 
-            $upload = $this->maxClient($accessToken)
+            $upload = Http::acceptJson()
+                ->timeout(30)
                 ->attach('data', $contents, $photo->getClientOriginalName(), [
                     'Content-Type' => $photo->getMimeType() ?: 'application/octet-stream',
                 ])
@@ -295,8 +296,6 @@ class LeadController extends Controller
         }
 
         $lines[] = '<b>Время:</b> '.$this->escapeHtml($lead['created_at']);
-        $lines[] = '<b>Страница:</b> '.$this->escapeHtml($lead['page']);
-
         return implode("\n", $lines);
     }
 
