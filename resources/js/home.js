@@ -24,6 +24,24 @@ const trackGoal = (goal) => {
     }
 };
 
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+        const hash = link.getAttribute('href');
+        const target = hash && hash.length > 1 ? document.getElementById(hash.slice(1)) : null;
+
+        if (!target) return;
+
+        event.preventDefault();
+        target.scrollIntoView({
+            behavior: reducedMotion ? 'auto' : 'smooth',
+            block: 'start',
+        });
+        window.history.replaceState(null, '', hash);
+    });
+});
+
 document.querySelectorAll('[data-metrika-goal]').forEach((element) => {
     element.addEventListener('click', () => trackGoal(element.dataset.metrikaGoal));
 });
@@ -91,6 +109,10 @@ const showToast = () => {
     successToast?.classList.add('is-visible');
     window.setTimeout(() => successToast?.classList.remove('is-visible'), 6000);
 };
+
+if (successToast?.dataset.initialVisible === 'true') {
+    window.setTimeout(() => successToast.classList.remove('is-visible'), 6000);
+}
 
 toastClose?.addEventListener('click', () => successToast?.classList.remove('is-visible'));
 
@@ -164,3 +186,28 @@ form?.addEventListener('submit', async (event) => {
         }
     }
 });
+
+if (!reducedMotion && 'IntersectionObserver' in window) {
+    const revealTargets = document.querySelectorAll([
+        '.service-card',
+        '.case-card',
+        '.price-row',
+        '.process-grid article',
+        '.portfolio-item',
+        '.contact-layout > *',
+    ].join(','));
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+
+            entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -36px' });
+
+    revealTargets.forEach((element, index) => {
+        element.classList.add('reveal-on-scroll');
+        element.style.setProperty('--reveal-delay', `${Math.min(index % 4, 3) * 70}ms`);
+        revealObserver.observe(element);
+    });
+}

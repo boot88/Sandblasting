@@ -115,8 +115,11 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
-    // Address which receives website enquiries. It may be different from
-    // MAIL_FROM_ADDRESS, which is used as the sender address.
-    'lead_to_address' => env('LEAD_TO_EMAIL', env('MAIL_FROM_ADDRESS')),
+    // Addresses which receive website enquiries. Keep them separate from
+    // MAIL_FROM_ADDRESS: the sender must normally match the SMTP account.
+    'lead_to_addresses' => array_values(array_filter(array_map(
+        static fn (string $address): string => trim($address),
+        explode(',', (string) env('LEAD_TO_EMAILS', env('LEAD_TO_EMAIL', env('MAIL_FROM_ADDRESS'))))
+    ))),
 
 ];

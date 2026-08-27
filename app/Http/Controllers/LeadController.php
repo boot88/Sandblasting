@@ -2,89 +2,75 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\LeadRequestMail;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class LeadController extends Controller
 {
     public function send(Request $request)
     {
-        // Базовая валидация
         $data = $request->validate([
-            'name'    => ['required', 'string', 'max:255'],
-            'phone'   => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:120'],
+            'phone' => ['required', 'string', 'max:32', 'regex:/^[\d\s\-+()]+$/'],
             'message' => ['required', 'string', 'max:5000'],
-            'photo'   => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,heic,heif', 'max:10240'],
+            'photo' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,heic,heif', 'max:10240'],
+            'website' => ['nullable', 'string', 'max:0'],
+        ], [
+            'name.required' => 'Укажите ваше имя.',
+            'phone.required' => 'Укажите номер телефона.',
+            'phone.regex' => 'Проверьте формат номера телефона.',
+            'message.required' => 'Кратко опишите, что нужно обработать.',
+            'photo.mimes' => 'Фото должно быть в формате JPG, PNG, WebP или HEIC.',
+            'photo.max' => 'Размер фотографии не должен превышать 10 МБ.',
         ]);
+
+        if ($request->filled('website')) {
+            Log::warning('Lead form honeypot triggered', ['ip' => $request->ip()]);
+
+            return $this->successResponse($request);
+        }
+
+        if (strlen((string) preg_replace('/\D+/', '', $data['phone'])) < 10) {
+            $message = 'Введите номер телефона минимум из 10 цифр.';
+
+            if ($request->expectsJson() || $request->ajax()) {
+                return response()->json(['message' => $message, 'errors' => ['phone' => [$message]]], 422);
+            }
+
+            return back()->withInput()->withErrors(['phone' => $message]);
+        }
 
         $photo = $request->file('photo');
-
-        // Дополнительные данные о заявке
-        $lead = array_merge($data, [
-            'page'       => $request->headers->get('referer') ?? $request->fullUrl(),
+        $photoData = $this->photoData($photo);
+        $lead = [
+            'name' => trim($data['name']),
+            'phone' => trim($data['phone']),
+            'message' => trim($data['message']),
+            'page' => $request->headers->get('referer') ?? $request->fullUrl(),
             'created_at' => now()->format('d.m.Y H:i'),
             'user_agent' => $request->userAgent(),
-            'ip'         => $request->ip(),
-            'photo_name' => $photo?->getClientOriginalName(),
+            'ip' => $request->ip(),
+            'photo_name' => $photoData['name'] ?? null,
+        ];
+
+        $mailSent = $this->sendEmails($lead, $photoData);
+        $maxSent = $this->sendMax($lead, $photo);
+        $telegramSent = $this->sendTelegram($lead);
+
+        Log::info('Lead delivery result', [
+            'mail_sent' => $mailSent,
+            'max_sent' => $maxSent,
+            'telegram_sent' => $telegramSent,
+            'has_photo' => $photo !== null,
+            'ip' => $request->ip(),
         ]);
 
-        // Почта отправителя и получателя задаётся отдельно в .env.
-        $toEmail = config('mail.lead_to_address');
-        $mailSent = false;
-
-        if ($toEmail) {
-            try {
-                Mail::send('emails.lead_request', ['lead' => $lead], function ($message) use ($toEmail, $photo) {
-                    $message
-                        ->to($toEmail)
-                        ->subject('Новая заявка с сайта ООО «НСКМакстар»');
-
-                    if ($photo?->isValid()) {
-                        $message->attach($photo->getRealPath(), [
-                            'as' => $photo->getClientOriginalName(),
-                            'mime' => $photo->getMimeType(),
-                        ]);
-                    }
-                });
-
-                $mailSent = true;
-            } catch (\Throwable $e) {
-                report($e);
-            }
-        }
-
-        // В Telegram уходит ровно одно текстовое сообщение на заявку.
-        $botToken = config('services.telegram.bot_token');
-        $chatId   = config('services.telegram.chat_id');
-        $telegramSent = false;
-
-        if ($botToken && $chatId) {
-            $text = "Новая заявка с сайта ООО «НСКМакстар»\n"
-                . "Имя: {$lead['name']}\n"
-                . "Телефон: {$lead['phone']}\n"
-                . "Описание: {$lead['message']}\n"
-                . ($lead['photo_name'] ? "Фото: приложено к письму\n" : '')
-                . "Страница: {$lead['page']}\n"
-                . "IP: {$lead['ip']}";
-
-            try {
-                $response = Http::asForm()->timeout(10)->post("https://api.telegram.org/bot{$botToken}/sendMessage", [
-                    'chat_id' => $chatId,
-                    'text'    => $text,
-                ]);
-
-                $telegramSent = $response->successful();
-
-                if (! $telegramSent) {
-                    report(new \RuntimeException('Telegram notification was rejected by the API.'));
-                }
-            } catch (\Throwable $e) {
-                report($e);
-            }
-        }
-
-        if (! $mailSent && ! $telegramSent) {
+        if (! $mailSent && ! $maxSent && ! $telegramSent) {
             $message = 'Не удалось отправить заявку. Позвоните нам по телефону +7 (913) 895-45-25.';
 
             if ($request->expectsJson() || $request->ajax()) {
@@ -94,15 +80,244 @@ class LeadController extends Controller
             return back()->withInput()->withErrors(['form' => $message]);
         }
 
-        // Если запрос AJAX (fetch), отдаем JSON
-        if ($request->expectsJson() || $request->ajax()) {
-            return response()->json([
-                'status'  => 'ok',
-                'message' => 'Заявка отправлена',
-            ]);
+        return $this->successResponse($request);
+    }
+
+    private function sendEmails(array $lead, ?array $photoData): bool
+    {
+        $recipients = array_values(array_filter(
+            (array) config('mail.lead_to_addresses', []),
+            static fn ($email): bool => is_string($email) && filter_var($email, FILTER_VALIDATE_EMAIL) !== false
+        ));
+
+        if ($recipients === []) {
+            Log::error('Lead email recipients are not configured');
+
+            return false;
         }
 
-        // Обычный POST — редирект назад с флеш-сообщением
-        return back()->with('success', 'Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
+        $sent = 0;
+
+        foreach ($recipients as $recipient) {
+            try {
+                Mail::to($recipient)->send(new LeadRequestMail($lead, $photoData));
+                $sent++;
+            } catch (\Throwable $exception) {
+                Log::error('Lead email delivery failed', [
+                    'recipient' => $recipient,
+                    'message' => $exception->getMessage(),
+                ]);
+            }
+        }
+
+        return $sent > 0;
+    }
+
+    private function sendMax(array $lead, ?UploadedFile $photo): bool
+    {
+        $accessToken = trim((string) config('services.max.access_token'));
+        $userId = trim((string) config('services.max.user_id'));
+        $chatId = trim((string) config('services.max.chat_id'));
+
+        if ($accessToken === '' || ($userId === '' && $chatId === '')) {
+            return false;
+        }
+
+        $recipientKey = $userId !== '' ? 'user_id' : 'chat_id';
+        $recipientId = $userId !== '' ? $userId : $chatId;
+
+        if (! preg_match('/^\d+$/', $recipientId)) {
+            Log::error('MAX recipient ID has an invalid format');
+
+            return false;
+        }
+
+        try {
+            $attachments = [];
+            $imageToken = $photo?->isValid() ? $this->uploadPhotoToMax($accessToken, $photo) : null;
+
+            if ($imageToken !== null) {
+                $attachments[] = [
+                    'type' => 'image',
+                    'payload' => ['token' => $imageToken],
+                ];
+            }
+
+            $messageUrl = 'https://platform-api2.max.ru/messages?'.http_build_query([$recipientKey => $recipientId]);
+            $response = $this->maxClient($accessToken)->post(
+                $messageUrl,
+                [
+                    'text' => $this->formatNotification($lead, $photo !== null && $imageToken === null),
+                    'format' => 'html',
+                    'disable_link_preview' => true,
+                    'attachments' => $attachments,
+                ]
+            );
+
+            // MAX can process a freshly uploaded image asynchronously. If it
+            // is not ready yet, deliver the lead text immediately; the photo
+            // is still present in both email copies.
+            if (! $response->successful() && $attachments !== []) {
+                Log::warning('MAX image was not ready, retrying lead without attachment', [
+                    'status' => $response->status(),
+                ]);
+                $response = $this->maxClient($accessToken)->post($messageUrl, [
+                    'text' => $this->formatNotification($lead, true),
+                    'format' => 'html',
+                    'disable_link_preview' => true,
+                    'attachments' => [],
+                ]);
+            }
+
+            if (! $response->successful()) {
+                Log::error('MAX lead delivery failed', [
+                    'status' => $response->status(),
+                    'description' => $response->json('description') ?? $response->json('message'),
+                ]);
+
+                return false;
+            }
+
+            return true;
+        } catch (\Throwable $exception) {
+            Log::error('MAX lead delivery exception', ['message' => $exception->getMessage()]);
+
+            return false;
+        }
+    }
+
+    private function uploadPhotoToMax(string $accessToken, UploadedFile $photo): ?string
+    {
+        try {
+            $slot = $this->maxClient($accessToken)
+                ->post('https://platform-api2.max.ru/uploads?type=image');
+            $uploadUrl = $slot->json('url');
+
+            if (! $slot->successful() || ! is_string($uploadUrl) || $uploadUrl === '') {
+                Log::warning('MAX image upload slot was not created', ['status' => $slot->status()]);
+
+                return null;
+            }
+
+            $contents = file_get_contents($photo->getRealPath());
+
+            if ($contents === false) {
+                return null;
+            }
+
+            $upload = $this->maxClient($accessToken)
+                ->attach('data', $contents, $photo->getClientOriginalName(), [
+                    'Content-Type' => $photo->getMimeType() ?: 'application/octet-stream',
+                ])
+                ->post($uploadUrl);
+
+            $token = $upload->json('token') ?? $slot->json('token');
+
+            if (! $upload->successful() || ! is_string($token) || $token === '') {
+                Log::warning('MAX image upload failed', ['status' => $upload->status()]);
+
+                return null;
+            }
+
+            return $token;
+        } catch (\Throwable $exception) {
+            Log::warning('MAX image upload exception', ['message' => $exception->getMessage()]);
+
+            return null;
+        }
+    }
+
+    private function sendTelegram(array $lead): bool
+    {
+        $botToken = trim((string) config('services.telegram.bot_token'));
+        $chatId = trim((string) config('services.telegram.chat_id'));
+
+        if ($botToken === '' || $chatId === '') {
+            return false;
+        }
+
+        try {
+            $response = Http::asForm()->timeout(10)->post("https://api.telegram.org/bot{$botToken}/sendMessage", [
+                'chat_id' => $chatId,
+                'text' => strip_tags($this->formatNotification($lead, $lead['photo_name'] !== null)),
+            ]);
+
+            if (! $response->successful()) {
+                Log::error('Telegram lead delivery failed', ['status' => $response->status()]);
+
+                return false;
+            }
+
+            return true;
+        } catch (\Throwable $exception) {
+            Log::error('Telegram lead delivery exception', ['message' => $exception->getMessage()]);
+
+            return false;
+        }
+    }
+
+    private function maxClient(string $accessToken): PendingRequest
+    {
+        $client = Http::asJson()
+            ->acceptJson()
+            ->withHeaders(['Authorization' => $accessToken])
+            ->timeout(15);
+        $caBundle = trim((string) config('services.max.ca_bundle'));
+
+        if ($caBundle !== '') {
+            $client = $client->withOptions(['verify' => $caBundle]);
+        }
+
+        return $client;
+    }
+
+    private function formatNotification(array $lead, bool $photoByEmailOnly = false): string
+    {
+        $lines = [
+            '<b>Новая заявка · НСКМакстар</b>',
+            '<b>Имя:</b> '.$this->escapeHtml($lead['name']),
+            '<b>Телефон:</b> '.$this->escapeHtml($lead['phone']),
+            '<b>Описание:</b> '.$this->escapeHtml($lead['message']),
+        ];
+
+        if ($lead['photo_name']) {
+            $lines[] = $photoByEmailOnly
+                ? '<b>Фото:</b> приложено к письму'
+                : '<b>Фото:</b> прикреплено к сообщению';
+        }
+
+        $lines[] = '<b>Время:</b> '.$this->escapeHtml($lead['created_at']);
+        $lines[] = '<b>Страница:</b> '.$this->escapeHtml($lead['page']);
+
+        return implode("\n", $lines);
+    }
+
+    private function photoData(?UploadedFile $photo): ?array
+    {
+        if (! $photo?->isValid()) {
+            return null;
+        }
+
+        return [
+            'path' => $photo->getRealPath(),
+            'name' => $photo->getClientOriginalName(),
+            'mime' => $photo->getMimeType() ?: 'application/octet-stream',
+        ];
+    }
+
+    private function escapeHtml(string $value): string
+    {
+        return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    }
+
+    private function successResponse(Request $request)
+    {
+        $message = 'Заявка отправлена! Мы свяжемся с вами после просмотра.';
+
+        if ($request->expectsJson() || $request->ajax()) {
+            return response()->json(['status' => 'ok', 'message' => $message]);
+        }
+
+        return back()->with('success', $message);
     }
 }

@@ -161,7 +161,7 @@ section[id]{scroll-margin-top: 96px;}
                 <h3 class="text-lg font-semibold mb-4 text-white">Контакты</h3>
                 <p class="text-neutral-300">г. Бердск, пром. переулок 2а/4</p>
                 <a href="tel:+79138954525" class="text-neutral-300 hover:text-blue-400 block mt-2">+7 (913) 895-45-25</a>
-                <a href="mailto:info@maxtar-nsk.ru" class="text-neutral-300 hover:text-blue-400 block mt-2">info@maxtar-nsk.ru</a>
+                <a href="mailto:admin@happypils.ru" class="text-neutral-300 hover:text-blue-400 block mt-2">admin@happypils.ru</a>
             </div>
             <div>
                 <h3 class="text-lg font-semibold mb-4 text-white">Время работы</h3>

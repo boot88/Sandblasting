@@ -29,6 +29,7 @@
         'url' => url('/'),
         'image' => asset('images/hero/hero-nskmaxtar-v2.webp'),
         'telephone' => '+79138954525',
+        'email' => 'admin@happypils.ru',
         'priceRange' => '₽₽',
         'address' => [
             '@type' => 'PostalAddress',
@@ -133,6 +134,10 @@
                         <img src="{{ asset('images/job2/1_b2.jpg') }}" alt="Очистка металлической детали" width="1536" height="1024" loading="lazy" decoding="async">
                         <div class="service-card__body"><span>04</span><h3>Лодки, фасады, прочее</h3><p>Оценим нестандартное изделие по фотографии или после осмотра.</p><strong>Расчёт индивидуально</strong></div>
                     </article>
+                    <article class="service-card">
+                        <img src="{{ asset('images/job2/5_bl2.jpg') }}" alt="Пескоструйная очистка узлов промышленного оборудования" width="1536" height="1024" loading="lazy" decoding="async">
+                        <div class="service-card__body"><span>05</span><h3>Станки и оборудование</h3><p>Корпуса, опоры, узлы и металлические элементы производственного оборудования.</p><strong>от 5 000 ₽</strong></div>
+                    </article>
                 </div>
                 <p class="illustration-note">Фотографии в блоке иллюстрируют виды работ и будут заменяться реальными материалами ООО «НСКМакстар».</p>
             </div>
@@ -158,8 +163,9 @@
                 <div class="price-list">
                     <div class="price-row"><span>01</span><div><strong>Колёсные диски</strong><small>Комплект, цена зависит от диаметра</small></div><b>от 5 000 ₽</b></div>
                     <div class="price-row"><span>02</span><div><strong>Рамы и детали авто</strong><small>Подвеска, кузовные и другие детали</small></div><b>от 1 500 ₽</b></div>
-                    <div class="price-row"><span>03</span><div><strong>Металлоконструкции</strong><small>После оценки площади и сложности</small></div><b>от 15 000 ₽</b></div>
+                    <div class="price-row"><span>03</span><div><strong>Металлоконструкции</strong><small>После оценки площади и сложности</small></div><b>от 500 ₽/м²</b></div>
                     <div class="price-row"><span>04</span><div><strong>Крупные поверхности</strong><small>Ориентир при достаточном объёме</small></div><b>от 500 ₽/м²</b></div>
+                    <div class="price-row"><span>05</span><div><strong>Станки и оборудование</strong><small>Узлы, корпуса и производственные детали</small></div><b>от 5 000 ₽</b></div>
                     <div class="price-row price-row--accent"><span>—</span><div><strong>Минимальный заказ</strong><small>Для запуска и подготовки оборудования</small></div><b>5 000 ₽</b></div>
                 </div>
             </div>
@@ -204,6 +210,7 @@
                     <div class="contact-info">
                         <div class="contact-list">
                             <div><span>Телефон</span><a href="tel:+79138954525" data-metrika-goal="phone_click">+7 913 895-45-25</a></div>
+                            <div><span>Email</span><a href="mailto:admin@happypils.ru" data-metrika-goal="email_click">admin@happypils.ru</a></div>
                             <div><span>Адрес</span><a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer" data-metrika-goal="route_2gis">Бердск, пер. Промышленный, 2а/4</a></div>
                             <div><span>Приём</span><p>По предварительной договорённости</p></div>
                         </div>
@@ -217,7 +224,7 @@
                     </div>
                     <div class="quote-card" id="quote">
                         <div class="quote-card__head"><span>Предварительная оценка</span><h3>Расскажите о задаче</h3><p>Приложите фотографию — так мы быстрее поймём объём и зададим только нужные вопросы.</p></div>
-                        @if($errors->has('form'))<div class="form-message form-message--error" role="alert">{{ $errors->first('form') }}</div>@endif
+                        @if($errors->any())<div class="form-message form-message--error" role="alert">{{ $errors->first() }}</div>@endif
                         <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
                         <form id="leadForm" method="POST" action="{{ route('lead.send') }}" enctype="multipart/form-data" novalidate>
                             @csrf
@@ -227,6 +234,7 @@
                             </div>
                             <label class="field"><span>Что нужно обработать</span><textarea name="message" rows="5" required placeholder="Например: четыре диска R17, старое порошковое покрытие">{{ old('message') }}</textarea></label>
                             <label class="upload-field" for="leadPhoto"><span class="upload-field__icon" aria-hidden="true">+</span><span><strong>Прикрепить фото детали</strong><small>JPG, PNG, WebP или HEIC · до 10 МБ</small></span><input id="leadPhoto" type="file" name="photo" accept="image/jpeg,image/png,image/webp,image/heic,image/heif"><em id="photoStatus">Фото не выбрано</em></label>
+                            <label class="honeypot" aria-hidden="true">Не заполняйте это поле<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
                             <button class="button button--primary button--submit" type="submit">Отправить заявку</button>
                             <p class="form-consent">Отправляя форму, вы соглашаетесь на обработку указанных контактных данных для ответа на заявку.</p>
                         </form>
@@ -240,12 +248,12 @@
         <div class="site-container site-footer__top">
             <a class="brand brand--footer" href="#top"><span class="brand__mark" aria-hidden="true">НМ</span><span class="brand__text"><strong>НСКМакстар</strong><small>Пескоструйная обработка</small></span></a>
             <p>Подготовка металлических поверхностей под защитные и декоративные покрытия.</p>
-            <div class="site-footer__contacts"><a href="tel:+79138954525">+7 913 895-45-25</a><a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer">Бердск · Как проехать</a></div>
+            <div class="site-footer__contacts"><a href="tel:+79138954525">+7 913 895-45-25</a><a href="mailto:admin@happypils.ru">admin@happypils.ru</a><a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer">Бердск · Как проехать</a></div>
         </div>
         <div class="site-container site-footer__bottom"><span>© {{ date('Y') }} ООО «НСКМакстар»</span><span>Информация на сайте не является публичной офертой</span></div>
     </footer>
 
     <div class="mobile-actions" aria-label="Быстрая связь"><a href="tel:+79138954525" data-metrika-goal="phone_click">Позвонить</a><a class="mobile-actions__primary" href="#quote" data-metrika-goal="mobile_quote">Оценить по фото</a></div>
-    <div class="toast" id="successToast" role="status" aria-live="polite"><strong>Заявка отправлена</strong><span>Мы свяжемся с вами после просмотра.</span><button type="button" id="toastClose" aria-label="Закрыть уведомление">×</button></div>
+    <div class="toast{{ session('success') ? ' is-visible' : '' }}" id="successToast" role="status" aria-live="polite" data-initial-visible="{{ session('success') ? 'true' : 'false' }}"><strong>Заявка отправлена</strong><span>{{ session('success', 'Мы свяжемся с вами после просмотра.') }}</span><button type="button" id="toastClose" aria-label="Закрыть уведомление">×</button></div>
 </body>
 </html>

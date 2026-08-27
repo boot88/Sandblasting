@@ -211,6 +211,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .service-card:hover img { transform: scale(1.025); }
 .illustration-note, .case-disclaimer { margin: 22px 0 0; color: #6c737b; font-size: 11px; }
 
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .65s ease var(--reveal-delay, 0ms), transform .65s cubic-bezier(.2,.75,.25,1) var(--reveal-delay, 0ms);
+}
+.reveal-on-scroll.is-revealed { opacity: 1; transform: translateY(0); }
+
 .case-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
 .case-card { overflow: hidden; background: #1b2128; border: 1px solid var(--line-dark); }
 .case-card__visual { position: relative; aspect-ratio: 2 / 1; overflow: hidden; }
@@ -302,6 +309,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .upload-field span small { margin-top: 3px; color: #747b82; font-size: 10px; }
 .upload-field input { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; }
 .upload-field em { max-width: 130px; color: #697078; font-size: 10px; font-style: normal; text-align: right; word-break: break-word; }
+.honeypot { position: absolute !important; left: -10000px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
 .button--submit { width: 100%; min-height: 56px; margin-top: 18px; border: 0; }
 .form-consent { margin: 12px 0 0; color: #7b8288; font-size: 9px; line-height: 1.45; }
 .form-message { display: none; margin: 0 0 18px; padding: 12px 14px; font-size: 12px; }

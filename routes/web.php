@@ -9,7 +9,9 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::post('/lead', [LeadController::class, 'send'])->name('lead.send');
+Route::post('/lead', [LeadController::class, 'send'])
+    ->middleware('throttle:5,1')
+    ->name('lead.send');
 
 Route::get('/sitemap.xml', function (Request $request) {
     $siteUrl = rtrim($request->getSchemeAndHttpHost().$request->getBaseUrl(), '/');
