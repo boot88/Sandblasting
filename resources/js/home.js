@@ -123,7 +123,7 @@ const photoStatus = document.getElementById('photoStatus');
 const formMessage = document.getElementById('formMessage');
 const successToast = document.getElementById('successToast');
 const toastClose = document.getElementById('toastClose');
-const maxPhotoSize = 10 * 1024 * 1024;
+const maxPhotoSize = 25 * 1024 * 1024;
 
 const showFormMessage = (message, type = 'error') => {
     if (!formMessage) return;
@@ -162,7 +162,7 @@ photoInput?.addEventListener('change', () => {
     if (file.size > maxPhotoSize) {
         photoInput.value = '';
         if (photoStatus) photoStatus.textContent = 'Фото не выбрано';
-        showFormMessage('Файл больше 10 МБ. Выберите фотографию меньшего размера.');
+        showFormMessage('Файл больше 25 МБ. Выберите фотографию меньшего размера.');
         return;
     }
 
