@@ -169,6 +169,34 @@ photoInput?.addEventListener('change', () => {
     if (photoStatus) photoStatus.textContent = file.name;
 });
 
+const prepareMobilePhoto = async (file) => {
+    if (!file || file.size <= 4 * 1024 * 1024 || !('createImageBitmap' in window)) {
+        return file;
+    }
+
+    try {
+        const bitmap = await createImageBitmap(file);
+        const maxSide = 2200;
+        const scale = Math.min(1, maxSide / Math.max(bitmap.width, bitmap.height));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(bitmap.width * scale);
+        canvas.height = Math.round(bitmap.height * scale);
+        canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+        bitmap.close();
+
+        const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.86));
+        if (!blob) return file;
+
+        const baseName = file.name.replace(/\.[^.]+$/, '') || 'photo';
+        return new File([blob], `${baseName}.jpg`, {
+            type: 'image/jpeg',
+            lastModified: Date.now(),
+        });
+    } catch {
+        return file;
+    }
+};
+
 form?.addEventListener('submit', async (event) => {
     event.preventDefault();
     clearFormMessage();
@@ -187,6 +215,14 @@ form?.addEventListener('submit', async (event) => {
     }
 
     try {
+        const formData = new FormData(form);
+        const originalPhoto = photoInput?.files?.[0];
+
+        if (originalPhoto) {
+            const preparedPhoto = await prepareMobilePhoto(originalPhoto);
+            formData.set('photo', preparedPhoto, preparedPhoto.name);
+        }
+
         const response = await fetch(form.action, {
             method: 'POST',
             headers: {
@@ -194,7 +230,7 @@ form?.addEventListener('submit', async (event) => {
                 'X-CSRF-TOKEN': form.querySelector('input[name="_token"]')?.value ?? '',
                 'Accept': 'application/json',
             },
-            body: new FormData(form),
+            body: formData,
         });
 
         const data = await response.json().catch(() => ({}));
