@@ -27,6 +27,7 @@ class LeadSubmissionTest extends TestCase
             'admin@happypils.ru',
             'povisok888@gmail.com',
         ]);
+        config()->set('mail.default', 'smtp');
         config()->set('services.max.access_token', 'max-test-token');
         config()->set('services.max.user_id', '69922776');
         config()->set('services.max.chat_id', null);
