@@ -31,10 +31,14 @@
                 bottom: auto !important;
                 left: 0 !important;
                 height: calc(100dvh - 70px) !important;
-                z-index: 101 !important;
+                z-index: 250 !important;
                 overflow-y: auto !important;
             }
-            body.menu-open .mobile-actions { opacity: 0; pointer-events: none; }
+            .mobile-actions,
+            .mobile-actions a {
+                pointer-events: auto !important;
+                touch-action: manipulation;
+            }
         }
     </style>
     <script type="application/ld+json">{!! json_encode([
