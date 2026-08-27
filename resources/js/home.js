@@ -26,6 +26,42 @@ const trackGoal = (goal) => {
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+let scrollAnimationFrame = null;
+
+const smoothScrollTo = (target) => {
+    if (scrollAnimationFrame) window.cancelAnimationFrame(scrollAnimationFrame);
+
+    const scrollPadding = Number.parseFloat(
+        window.getComputedStyle(document.documentElement).scrollPaddingTop
+    ) || 0;
+    const startPosition = window.scrollY;
+    const targetPosition = Math.max(
+        0,
+        target.getBoundingClientRect().top + startPosition - scrollPadding
+    );
+    const distance = targetPosition - startPosition;
+    const duration = Math.min(850, Math.max(550, Math.abs(distance) * 0.35));
+    const startedAt = window.performance.now();
+
+    const animate = (currentTime) => {
+        const progress = Math.min((currentTime - startedAt) / duration, 1);
+        const easedProgress = progress < 0.5
+            ? 4 * progress ** 3
+            : 1 - ((-2 * progress + 2) ** 3) / 2;
+
+        window.scrollTo(0, startPosition + distance * easedProgress);
+
+        if (progress < 1) {
+            scrollAnimationFrame = window.requestAnimationFrame(animate);
+        } else {
+            scrollAnimationFrame = null;
+            target.focus({ preventScroll: true });
+        }
+    };
+
+    scrollAnimationFrame = window.requestAnimationFrame(animate);
+};
+
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener('click', (event) => {
         const hash = link.getAttribute('href');
@@ -34,10 +70,8 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
         if (!target) return;
 
         event.preventDefault();
-        target.scrollIntoView({
-            behavior: reducedMotion ? 'auto' : 'smooth',
-            block: 'start',
-        });
+        setMenuState(false);
+        smoothScrollTo(target);
         window.history.replaceState(null, '', hash);
     });
 });

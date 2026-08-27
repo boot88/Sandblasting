@@ -23,6 +23,8 @@ html {
     -webkit-text-size-adjust: 100%;
 }
 
+[id] { scroll-margin-top: 88px; }
+
 body {
     margin: 0;
     min-width: 320px;
@@ -462,6 +464,5 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
