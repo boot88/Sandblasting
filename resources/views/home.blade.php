@@ -275,7 +275,7 @@
 
     <div class="mobile-actions" aria-label="Быстрая связь">
         <a href="tel:+79138954525" onclick="event.preventDefault(); window.location.href = 'tel:+79138954525'; return false;">Позвонить</a>
-        <a class="mobile-actions__primary" href="#leadPhoto" onclick="event.preventDefault(); event.stopImmediatePropagation(); document.getElementById('leadPhoto')?.click(); return false;">Прикрепить фото</a>
+        <a class="mobile-actions__primary" href="#leadPhoto" onclick="event.preventDefault(); event.stopImmediatePropagation(); document.getElementById('leadPhoto')?.click(); return false;">Оценить по фото</a>
     </div>
     <div class="toast{{ session('success') ? ' is-visible' : '' }}" id="successToast" role="status" aria-live="polite" data-initial-visible="{{ session('success') ? 'true' : 'false' }}"><strong>Заявка отправлена</strong><span>{{ session('success', 'Мы свяжемся с вами после просмотра.') }}</span><button type="button" id="toastClose" aria-label="Закрыть уведомление">×</button></div>
 </body>
