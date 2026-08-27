@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Пескоструйная обработка в Бердске. Очистка от ржавчины, подготовка под покраску. Колёсные диски, кузова, фасады. Звоните +7 (913) 895-45-25"> <!-- ОБНОВЛЕНО -->
-    <title>Пескоструйная обработка в Бердске | ООО "Макстар"</title>
+    <title>Пескоструйная обработка в Бердске | ООО "НСКМакстар"</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -143,7 +143,7 @@ section[id]{scroll-margin-top: 96px;}
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div class="md:col-span-2">
-                <h3 class="text-lg font-semibold mb-4 text-white">ООО "Макстар"</h3>
+                <h3 class="text-lg font-semibold mb-4 text-white">ООО "НСКМакстар"</h3>
                 <p class="text-neutral-300">Профессиональная пескоструйная обработка любых поверхностей. Очистка от ржавчины, грязи, копоти и гари. Подготовка под покраску.</p>
                 
                 <!-- Соцсети -->
@@ -161,7 +161,7 @@ section[id]{scroll-margin-top: 96px;}
                 <h3 class="text-lg font-semibold mb-4 text-white">Контакты</h3>
                 <p class="text-neutral-300">г. Бердск, пром. переулок 2а/4</p>
                 <a href="tel:+79138954525" class="text-neutral-300 hover:text-blue-400 block mt-2">+7 (913) 895-45-25</a>
-                <a href="mailto:info@maxtar-nsk.ru" class="text-neutral-300 hover:text-blue-400 block mt-2">info@maxtar-nsk.ru</a>
+                <a href="mailto:admin@happypils.ru" class="text-neutral-300 hover:text-blue-400 block mt-2">admin@happypils.ru</a>
             </div>
             <div>
                 <h3 class="text-lg font-semibold mb-4 text-white">Время работы</h3>
@@ -171,7 +171,7 @@ section[id]{scroll-margin-top: 96px;}
             </div>
         </div>
         <div class="border-t border-neutral-700 mt-8 pt-8 text-center text-neutral-400">
-            <p>&copy; {{ date('Y') }} ООО "Макстар". Все права защищены.</p>
+            <p>&copy; {{ date('Y') }} ООО "НСКМакстар". Все права защищены.</p>
         </div>
     </div>
 </footer>

@@ -8,7 +8,7 @@
     <table width="100%%" cellpadding="0" cellspacing="0" border="0" style="max-width:620px;margin:0 auto;background:#ffffff;border-radius:8px;overflow:hidden;">
         <tr>
             <td style="padding:20px 24px 16px 24px;border-bottom:1px solid #e5e7eb;">
-                <h2 style="margin:0 0 4px;font-size:18px;color:#111827;">Новая заявка с сайта SandBlast</h2>
+                <h2 style="margin:0 0 4px;font-size:18px;color:#111827;">Новая заявка с сайта ООО «НСКМакстар»</h2>
                 <p style="margin:0;font-size:12px;color:#6b7280;">{{ $lead['created_at'] ?? '' }}</p>
             </td>
         </tr>
@@ -27,6 +27,12 @@
                         <td style="color:#4b5563;vertical-align:top;"><strong>Описание:</strong></td>
                         <td style="color:#111827;white-space:pre-line;">{{ $lead['message'] ?? '' }}</td>
                     </tr>
+                    @if(!empty($lead['photo_name']))
+                    <tr>
+                        <td style="color:#4b5563;"><strong>Фото:</strong></td>
+                        <td style="color:#111827;">{{ $lead['photo_name'] }} — приложено к письму</td>
+                    </tr>
+                    @endif
                 </table>
             </td>
         </tr>

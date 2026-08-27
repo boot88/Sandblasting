@@ -43,6 +43,7 @@ return [
             'url' => env('MAIL_URL'),
             'host' => env('MAIL_HOST', '127.0.0.1'),
             'port' => env('MAIL_PORT', 2525),
+            'auto_tls' => env('MAIL_AUTO_TLS', true),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
@@ -114,5 +115,12 @@ return [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
+
+    // Addresses which receive website enquiries. Keep them separate from
+    // MAIL_FROM_ADDRESS: the sender must normally match the SMTP account.
+    'lead_to_addresses' => array_values(array_filter(array_map(
+        static fn (string $address): string => trim($address),
+        explode(',', (string) env('LEAD_TO_EMAILS', env('LEAD_TO_EMAIL', env('MAIL_FROM_ADDRESS'))))
+    ))),
 
 ];
