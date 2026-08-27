@@ -21,7 +21,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>html { scroll-behavior: smooth !important; scroll-padding-top: 88px; }</style>
+    <style>
+        html { scroll-behavior: smooth !important; scroll-padding-top: 88px; }
+        @media (max-width: 920px) {
+            .mobile-menu {
+                position: absolute !important;
+                top: 70px !important;
+                right: 0 !important;
+                bottom: auto !important;
+                left: 0 !important;
+                height: calc(100dvh - 70px) !important;
+                z-index: 101 !important;
+                overflow-y: auto !important;
+            }
+            body.menu-open .mobile-actions { opacity: 0; pointer-events: none; }
+        }
+    </style>
     <script type="application/ld+json">{!! json_encode([
         '@context' => 'https://schema.org',
         '@type' => 'LocalBusiness',
