@@ -85,6 +85,14 @@ class LeadController extends Controller
 
     private function sendEmails(array $lead, ?array $photoData): bool
     {
+        $mailer = (string) config('mail.default');
+
+        if (in_array($mailer, ['array', 'log'], true)) {
+            Log::error('Lead email delivery is disabled', ['mailer' => $mailer]);
+
+            return false;
+        }
+
         $recipients = array_values(array_filter(
             (array) config('mail.lead_to_addresses', []),
             static fn ($email): bool => is_string($email) && filter_var($email, FILTER_VALIDATE_EMAIL) !== false
@@ -126,7 +134,7 @@ class LeadController extends Controller
         $recipientKey = $userId !== '' ? 'user_id' : 'chat_id';
         $recipientId = $userId !== '' ? $userId : $chatId;
 
-        if (! preg_match('/^\d+$/', $recipientId)) {
+        if (! preg_match('/^-?\d+$/', $recipientId)) {
             Log::error('MAX recipient ID has an invalid format');
 
             return false;
