@@ -21,6 +21,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>html { scroll-behavior: smooth !important; scroll-padding-top: 88px; }</style>
     <script type="application/ld+json">{!! json_encode([
         '@context' => 'https://schema.org',
         '@type' => 'LocalBusiness',
@@ -234,7 +235,7 @@
                             </div>
                             <label class="field"><span>Что нужно обработать</span><textarea name="message" rows="5" required placeholder="Например: четыре диска R17, старое порошковое покрытие">{{ old('message') }}</textarea></label>
                             <label class="upload-field" for="leadPhoto"><span class="upload-field__icon" aria-hidden="true">+</span><span><strong>Прикрепить фото детали</strong><small>JPG, PNG, WebP или HEIC · до 10 МБ</small></span><input id="leadPhoto" type="file" name="photo" accept="image/jpeg,image/png,image/webp,image/heic,image/heif"><em id="photoStatus">Фото не выбрано</em></label>
-                            <label class="honeypot" aria-hidden="true">Не заполняйте это поле<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+                            <label class="honeypot" aria-hidden="true" style="position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;">Не заполняйте это поле<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
                             <button class="button button--primary button--submit" type="submit">Отправить заявку</button>
                             <p class="form-consent">Отправляя форму, вы соглашаетесь на обработку указанных контактных данных для ответа на заявку.</p>
                         </form>
