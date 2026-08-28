@@ -24,6 +24,45 @@ const trackGoal = (goal) => {
     }
 };
 
+const mapWrap = document.querySelector('[data-map-zoom]');
+const locationMap = document.getElementById('locationMap');
+
+if (mapWrap && locationMap) {
+    const updateMapZoom = (delta) => {
+        const zoom = Math.min(19, Math.max(12, Number(mapWrap.dataset.mapZoom || 17) + delta));
+        if (zoom === Number(mapWrap.dataset.mapZoom)) return;
+
+        mapWrap.dataset.mapZoom = String(zoom);
+        const source = new URL(locationMap.src);
+        source.searchParams.set('z', String(zoom));
+        locationMap.src = source.toString();
+    };
+
+    mapWrap.querySelector('[data-map-zoom-in]')?.addEventListener('click', () => updateMapZoom(1));
+    mapWrap.querySelector('[data-map-zoom-out]')?.addEventListener('click', () => updateMapZoom(-1));
+
+    let pinchDistance = null;
+    mapWrap.addEventListener('touchstart', (event) => {
+        if (event.touches.length === 2) {
+            pinchDistance = Math.hypot(
+                event.touches[0].clientX - event.touches[1].clientX,
+                event.touches[0].clientY - event.touches[1].clientY,
+            );
+        }
+    }, { passive: true });
+    mapWrap.addEventListener('touchmove', (event) => {
+        if (event.touches.length !== 2 || pinchDistance === null) return;
+        const distance = Math.hypot(
+            event.touches[0].clientX - event.touches[1].clientX,
+            event.touches[0].clientY - event.touches[1].clientY,
+        );
+        if (Math.abs(distance - pinchDistance) < 34) return;
+        updateMapZoom(distance > pinchDistance ? 1 : -1);
+        pinchDistance = distance;
+    }, { passive: true });
+    mapWrap.addEventListener('touchend', () => { pinchDistance = null; }, { passive: true });
+}
+
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 let scrollAnimationFrame = null;

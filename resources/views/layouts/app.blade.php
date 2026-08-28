@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     @vite('resources/css/app.css')
+    <link rel="stylesheet" href="{{ asset('map-controls.css') }}">
+    <script src="{{ asset('map-controls.js') }}" defer></script>
 <style>
 /* === Brand: SandBlast Polymer assets === */
 :root{

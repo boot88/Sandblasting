@@ -160,7 +160,7 @@
                         <div class="service-card__body"><span>05</span><h3>Станки и оборудование</h3><p>Корпуса, опоры, узлы и металлические элементы производственного оборудования.</p><strong>от 5 000 ₽</strong></div>
                     </article>
                 </div>
-                <p class="illustration-note">Фотографии в блоке иллюстрируют виды работ и будут заменяться реальными материалами ООО «НСКМакстар».</p>
+                <p class="illustration-note">Фотографии в блоке иллюстрируют виды работ и будут дополняться реальными материалами ООО «НСКМакстар».</p>
             </div>
         </section>
 
@@ -174,7 +174,7 @@
                     <article class="case-card"><div class="case-card__visual"><img src="{{ asset('images/examples/example-wheel-before-after.webp') }}" alt="Иллюстративное сравнение диска до и после очистки" width="1440" height="720" loading="lazy" decoding="async"><span class="case-card__label case-card__label--before">До</span><span class="case-card__label case-card__label--after">После</span></div><div class="case-card__body"><h3>Колёсный диск</h3><p>Удаление старого покрытия и очагов коррозии перед грунтованием.</p></div></article>
                     <article class="case-card"><div class="case-card__visual"><img src="{{ asset('images/examples/example-frame-before-after.webp') }}" alt="Иллюстративное сравнение металлической детали до и после очистки" width="1440" height="720" loading="lazy" decoding="async"><span class="case-card__label case-card__label--before">До</span><span class="case-card__label case-card__label--after">После</span></div><div class="case-card__body"><h3>Металлическая деталь</h3><p>Очистка сложного рельефа и труднодоступных участков.</p></div></article>
                 </div>
-                <p class="case-disclaimer">Сейчас показаны иллюстративные примеры результата. После появления собственных пар «до / после» мы заменим их без изменения дизайна.</p>
+                <p class="case-disclaimer">Сейчас показаны иллюстративные примеры результата работ пар «до / после». После будут добавлены больше фотографии, по требованию можем показать дополнительные работы готовых продукций.</p>
             </div>
         </section>
 
@@ -233,13 +233,16 @@
                             <div><span>Телефон</span><a href="tel:+79138954525" data-metrika-goal="phone_click">+7 913 895-45-25</a></div>
                             <div><span>Email</span><a href="mailto:admin@happypils.ru" data-metrika-goal="email_click">admin@happypils.ru</a></div>
                             <div><span>Адрес</span><a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer" data-metrika-goal="route_2gis">Бердск, пер. Промышленный, 2а/4</a></div>
-                            <div><span>Приём</span><p>По предварительной договорённости</p></div>
+                            <div><span>Режим работы</span><p>Пн–пт: 8:00–18:00 · обед 13:00–14:00<br>Сб–вс: выходные</p></div>
                         </div>
                         <div class="messenger-row">
                             <a href="https://wa.me/79138954525" target="_blank" rel="noopener noreferrer" data-metrika-goal="whatsapp_click">WhatsApp</a><a href="tg://resolve?phone=79138954525" data-metrika-goal="telegram_click">Telegram</a><a href="https://vk.ru/club105621991" target="_blank" rel="noopener noreferrer" data-metrika-goal="vk_click">VK</a>
                         </div>
-                        <div class="map-wrap">
-                            <iframe src="https://yandex.ru/map-widget/v1/?ll=83.096077%2C54.766532&amp;z=17&amp;pt=83.096077%2C54.766532%2Cpm2rdm" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Карта: Бердск, пер. Промышленный, 2а/4"></iframe>
+                        <div class="map-wrap" data-map-zoom="17">
+                            <iframe id="locationMap" src="https://yandex.ru/map-widget/v1/?ll=83.096077%2C54.766532&amp;z=17&amp;pt=83.096077%2C54.766532%2Cpm2rdm" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Карта: Бердск, пер. Промышленный, 2а/4"></iframe>
+                            <div class="map-wrap__gesture" aria-label="Карта: колесо мыши прокручивает страницу; масштабирование доступно кнопками или жестом двумя пальцами">
+                                <div class="map-wrap__zoom" aria-label="Масштаб карты"><button type="button" data-map-zoom-in aria-label="Приблизить карту">+</button><button type="button" data-map-zoom-out aria-label="Отдалить карту">−</button></div>
+                            </div>
                             <div class="map-wrap__actions"><a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer" data-metrika-goal="route_2gis">Маршрут в 2ГИС</a><a href="https://yandex.ru/maps/?text=НСО%2C%20г.%20Бердск%2C%20пер.%20Промышленный%202а%2F4" target="_blank" rel="noopener noreferrer" data-metrika-goal="route_yandex">Яндекс Карты</a></div>
                         </div>
                     </div>
