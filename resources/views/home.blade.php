@@ -243,7 +243,7 @@
                             <div class="map-wrap__gesture" aria-label="Карта: колесо мыши прокручивает страницу; масштабирование доступно кнопками или жестом двумя пальцами">
                                 <div class="map-wrap__zoom" aria-label="Масштаб карты"><button type="button" data-map-zoom-in aria-label="Приблизить карту">+</button><button type="button" data-map-zoom-out aria-label="Отдалить карту">−</button></div>
                             </div>
-                            <div class="map-wrap__actions"><a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer" data-metrika-goal="route_2gis">Маршрут в 2ГИС</a><a href="https://yandex.ru/maps/?text=НСО%2C%20г.%20Бердск%2C%20пер.%20Промышленный%202а%2F4" target="_blank" rel="noopener noreferrer" data-metrika-goal="route_yandex">Яндекс Карты</a></div>
+                            <div class="map-wrap__actions"><a href="https://yandex.ru/maps/?text=НСО%2C%20г.%20Бердск%2C%20пер.%20Промышленный%202а%2F4" target="_blank" rel="noopener noreferrer" data-metrika-goal="route_yandex">Открыть в Яндекс Картах</a></div>
                         </div>
                     </div>
                     <div class="quote-card" id="quote">
@@ -272,7 +272,7 @@
         <div class="site-container site-footer__top">
             <a class="brand brand--footer" href="#top"><span class="brand__mark" aria-hidden="true">НМ</span><span class="brand__text"><strong>НСКМакстар</strong><small>Пескоструйная обработка</small></span></a>
             <p>Подготовка металлических поверхностей под защитные и декоративные покрытия.</p>
-            <div class="site-footer__contacts"><a href="tel:+79138954525">+7 913 895-45-25</a><a href="mailto:admin@happypils.ru">admin@happypils.ru</a><a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer">Бердск · Как проехать</a></div>
+            <div class="site-footer__contacts"><a href="tel:+79138954525">+7 913 895-45-25</a><a href="mailto:admin@happypils.ru">admin@happypils.ru</a><span class="site-footer__hours"><strong>Режим работы</strong>Пн–пт 8:00–18:00 · обед 13:00–14:00<br>Сб–вс — выходные</span><a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer">Бердск · Как проехать</a></div>
         </div>
         <div class="site-container site-footer__bottom"><span>© {{ date('Y') }} ООО «НСКМакстар»</span><span>Информация на сайте не является публичной офертой</span></div>
     </footer>
