@@ -267,7 +267,7 @@
     <footer class="site-footer">
         <div class="site-container site-footer__top">
             <a class="brand brand--footer" href="#top"><span class="brand__mark" aria-hidden="true">НМ</span><span class="brand__text"><strong>НСКМакстар</strong><small>Пескоструйная обработка</small></span></a>
-            <div class="site-footer__summary"><p>Подготовка металлических поверхностей под защитные и декоративные покрытия.</p><div class="site-footer__hours"><strong>Режим работы</strong><span>Пн–пт: 8:00–18:00</span><span>Обед: 13:00–14:00</span><span>Сб–вс: выходные</span></div></div>
+            <div class="site-footer__summary"><p>Подготовка металлических поверхностей под защитные и декоративные покрытия.</p><div class="site-footer__hours"><strong>Режим работы</strong>&nbsp;<span>Пн–пт: 8:00–18:00</span>&nbsp;<span>Обед: 13:00–14:00</span>&nbsp;<span>Сб–вс: выходные</span></div></div>
             <div class="site-footer__contacts"><a href="tel:+79138954525">+7 913 895-45-25</a><a href="mailto:admin@happypils.ru">admin@happypils.ru</a><a href="https://2gis.ru/berdsk/geo/141373143549296" target="_blank" rel="noopener noreferrer">Бердск · Как проехать</a></div>
         </div>
         <div class="site-container site-footer__bottom"><span>© {{ date('Y') }} ООО «НСКМакстар»</span><span>Информация на сайте не является публичной офертой</span></div>
