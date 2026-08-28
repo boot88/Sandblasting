@@ -162,7 +162,7 @@ const photoStatus = document.getElementById('photoStatus');
 const formMessage = document.getElementById('formMessage');
 const successToast = document.getElementById('successToast');
 const toastClose = document.getElementById('toastClose');
-const maxPhotoSize = 25 * 1024 * 1024;
+const maxPhotoSize = 5 * 1024 * 1024;
 
 const showFormMessage = (message, type = 'error') => {
     if (!formMessage) return;
@@ -201,38 +201,93 @@ photoInput?.addEventListener('change', () => {
     if (file.size > maxPhotoSize) {
         photoInput.value = '';
         if (photoStatus) photoStatus.textContent = 'Фото не выбрано';
-        showFormMessage('Файл больше 25 МБ. Выберите фотографию меньшего размера.');
+        showFormMessage('Файл больше 5 МБ. Выберите фотографию меньшего размера.');
         return;
     }
 
     if (photoStatus) photoStatus.textContent = file.name;
 });
 
-const prepareMobilePhoto = async (file) => {
-    if (!file || file.size <= 4 * 1024 * 1024 || !('createImageBitmap' in window)) {
-        return file;
+const decodePhoto = async (file) => {
+    if ('createImageBitmap' in window) {
+        try {
+            const bitmap = await createImageBitmap(file);
+
+            return {
+                source: bitmap,
+                width: bitmap.width,
+                height: bitmap.height,
+                release: () => bitmap.close(),
+            };
+        } catch {
+            // Safari can decode some iPhone formats through an Image element instead.
+        }
     }
 
-    try {
-        const bitmap = await createImageBitmap(file);
-        const maxSide = 2200;
-        const scale = Math.min(1, maxSide / Math.max(bitmap.width, bitmap.height));
-        const canvas = document.createElement('canvas');
-        canvas.width = Math.round(bitmap.width * scale);
-        canvas.height = Math.round(bitmap.height * scale);
-        canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
-        bitmap.close();
+    const objectUrl = URL.createObjectURL(file);
 
-        const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.86));
-        if (!blob) return file;
+    return new Promise((resolve, reject) => {
+        const image = new Image();
+
+        image.onload = () => resolve({
+            source: image,
+            width: image.naturalWidth,
+            height: image.naturalHeight,
+            release: () => URL.revokeObjectURL(objectUrl),
+        });
+        image.onerror = () => {
+            URL.revokeObjectURL(objectUrl);
+            reject(new Error('Не удалось открыть выбранное фото.'));
+        };
+        image.src = objectUrl;
+    });
+};
+
+const preparePhotoForUpload = async (file) => {
+    const safeUploadSize = 1500 * 1024;
+
+    if (!file || file.size <= safeUploadSize) return file;
+
+    let decodedPhoto;
+
+    try {
+        decodedPhoto = await decodePhoto(file);
+        let maxSide = 1920;
+        let quality = 0.82;
+        let preparedBlob = null;
+
+        for (let attempt = 0; attempt < 5; attempt += 1) {
+            const scale = Math.min(1, maxSide / Math.max(decodedPhoto.width, decodedPhoto.height));
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.max(1, Math.round(decodedPhoto.width * scale));
+            canvas.height = Math.max(1, Math.round(decodedPhoto.height * scale));
+
+            const context = canvas.getContext('2d', { alpha: false });
+            if (!context) throw new Error('Браузер не поддерживает подготовку фото.');
+
+            context.drawImage(decodedPhoto.source, 0, 0, canvas.width, canvas.height);
+            preparedBlob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', quality));
+
+            if (preparedBlob && preparedBlob.size <= safeUploadSize) break;
+
+            maxSide = Math.round(maxSide * 0.82);
+            quality = Math.max(0.58, quality - 0.07);
+        }
+
+        if (!preparedBlob || preparedBlob.size > 1800 * 1024) {
+            throw new Error('Не удалось уменьшить фотографию для отправки.');
+        }
 
         const baseName = file.name.replace(/\.[^.]+$/, '') || 'photo';
-        return new File([blob], `${baseName}.jpg`, {
+
+        return new File([preparedBlob], `${baseName}.jpg`, {
             type: 'image/jpeg',
             lastModified: Date.now(),
         });
     } catch {
-        return file;
+        throw new Error('Не удалось подготовить фото. Сохраните его как JPG или сделайте снимок экрана и загрузите снова.');
+    } finally {
+        decodedPhoto?.release();
     }
 };
 
@@ -258,7 +313,7 @@ form?.addEventListener('submit', async (event) => {
         const originalPhoto = photoInput?.files?.[0];
 
         if (originalPhoto) {
-            const preparedPhoto = await prepareMobilePhoto(originalPhoto);
+            const preparedPhoto = await preparePhotoForUpload(originalPhoto);
             formData.set('photo', preparedPhoto, preparedPhoto.name);
         }
 

@@ -21,7 +21,7 @@ class LeadController extends Controller
             'name' => ['required', 'string', 'max:120'],
             'phone' => ['required', 'string', 'max:32', 'regex:/^[\d\s\-+()]+$/'],
             'message' => ['required', 'string', 'max:5000'],
-            'photo' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,heic,heif,avif', 'max:25600'],
+            'photo' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,heic,heif,avif', 'max:5120'],
             'website' => ['nullable', 'string', 'max:0'],
         ], [
             'name.required' => 'Укажите ваше имя.',
@@ -29,7 +29,8 @@ class LeadController extends Controller
             'phone.regex' => 'Проверьте формат номера телефона.',
             'message.required' => 'Кратко опишите, что нужно обработать.',
             'photo.mimes' => 'Фото должно быть в формате JPG, PNG, WebP, HEIC или AVIF.',
-            'photo.max' => 'Размер фотографии не должен превышать 25 МБ.',
+            'photo.max' => 'Размер фотографии не должен превышать 5 МБ.',
+            'photo.uploaded' => 'Не удалось загрузить фотографию. Попробуйте выбрать файл ещё раз.',
         ]);
 
         if ($request->filled('website')) {
